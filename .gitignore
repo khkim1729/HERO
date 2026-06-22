@@ -7,9 +7,9 @@ __pycache__/
 venv/
 logs/
 checkpoints/
+outputs/
 *.pth
 .codex
 .claude
 .cursor
 .vscode
-
