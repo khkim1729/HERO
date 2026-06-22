@@ -1,0 +1,47 @@
+seed: 42
+paths:
+  project_root: .
+  data_root: data/sample_5
+  clinical_csv: data/sample_5/HECKTOR_2026_training_data.csv
+  full_training_root: data/hecktor2026_training
+  outputs_root: outputs
+  checkpoints_root: checkpoints
+  cleaned_index: outputs/cleaned_dataset_index.json
+  clinical_artifacts_dir: outputs/clinical
+  eda_dir: outputs/eda
+runtime:
+  device: cuda
+  num_workers: 4
+  amp: true
+  deterministic: false
+data:
+  image_keys:
+    - image
+    - label
+  image_modalities:
+    - CT
+    - PT
+  roi_size:
+    - 64
+    - 64
+    - 64
+  spacing:
+    - 4.0
+    - 4.0
+    - 6.4
+  batch_size: 2
+  val_batch_size: 1
+  folds: 5
+  cache_rate: 0.0
+optimization:
+  learning_rate: 0.0002
+  weight_decay: 0.00001
+  max_epochs: 50
+  warmup_epochs: 5
+  grad_clip_norm: 1.0
+  label_cleaning_epochs: 5
+inference:
+  sw_batch_size: 1
+  overlap: 0.5
+  threshold: 0.5
+

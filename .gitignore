@@ -1,0 +1,15 @@
+data/
+*.nii.gz
+*.zip
+__pycache__/
+*.pyc
+.venv/
+venv/
+logs/
+checkpoints/
+*.pth
+.codex
+.claude
+.cursor
+.vscode
+
