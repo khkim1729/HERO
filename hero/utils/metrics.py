@@ -24,6 +24,14 @@ def multiclass_accuracy(logits: torch.Tensor, target: torch.Tensor) -> float:
     return float((pred == target.long()).float().mean().item())
 
 
+def masked_multiclass_accuracy(logits: torch.Tensor, target: torch.Tensor) -> float:
+    mask = target >= 0
+    if mask.sum() == 0:
+        return 0.0
+    pred = logits.argmax(dim=1)
+    return float((pred[mask] == target[mask].long()).float().mean().item())
+
+
 def concordance_index(risk_scores: Iterable[float], times: Iterable[float], events: Iterable[float]) -> float:
     risks = np.asarray(list(risk_scores), dtype=float)
     times = np.asarray(list(times), dtype=float)
@@ -54,4 +62,3 @@ def concordance_index(risk_scores: Iterable[float], times: Iterable[float], even
     if comparable == 0:
         return 0.5
     return float(concordant / comparable)
-
