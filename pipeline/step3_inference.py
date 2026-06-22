@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import sys
 from pathlib import Path
 
 import nibabel as nib
@@ -10,11 +11,41 @@ import torch.nn.functional as F
 from monai.data import DataLoader, Dataset
 from monai.inferers import SlidingWindowInferer
 
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
 from hero.data.dataset import build_case_records
-from hero.data.transforms import get_eval_transforms
+from hero.data.transforms import get_infer_transforms
 from hero.models.multitask_uxnet import MultiTaskUXNet
 from hero.utils.config import load_yaml, resolve_path
 from hero.utils.training import ensure_dir, set_seed, to_device
+
+
+def center_crop_or_pad(image: torch.Tensor, roi_size: tuple[int, int, int]) -> torch.Tensor:
+    _, _, h, w, d = image.shape
+    target_h, target_w, target_d = roi_size
+    pad_h = max(target_h - h, 0)
+    pad_w = max(target_w - w, 0)
+    pad_d = max(target_d - d, 0)
+    if pad_h > 0 or pad_w > 0 or pad_d > 0:
+        image = F.pad(
+            image,
+            (
+                pad_d // 2,
+                pad_d - pad_d // 2,
+                pad_w // 2,
+                pad_w - pad_w // 2,
+                pad_h // 2,
+                pad_h - pad_h // 2,
+            ),
+        )
+        _, _, h, w, d = image.shape
+
+    start_h = max((h - target_h) // 2, 0)
+    start_w = max((w - target_w) // 2, 0)
+    start_d = max((d - target_d) // 2, 0)
+    return image[:, :, start_h:start_h + target_h, start_w:start_w + target_w, start_d:start_d + target_d]
 
 
 def choose_data_root(common_cfg: dict) -> Path:
@@ -60,10 +91,12 @@ def load_model(checkpoint_path: Path, device: torch.device) -> tuple[MultiTaskUX
 def main() -> None:
     parser = argparse.ArgumentParser(description="Step 3: T4-optimized multitask inference.")
     parser.add_argument("--common-config", default="configs/common_config.yaml")
+    parser.add_argument("--step-config", default="configs/step3_inference.yaml")
     parser.add_argument("--checkpoint", default=None)
     args = parser.parse_args()
 
     common_cfg = load_yaml(args.common_config)
+    step_cfg = load_yaml(args.step_config)
     set_seed(common_cfg["seed"], common_cfg["runtime"]["deterministic"])
     project_root = Path(common_cfg["paths"]["project_root"]).resolve()
     data_root = choose_data_root(common_cfg)
@@ -76,17 +109,19 @@ def main() -> None:
     device = torch.device(device_name if torch.cuda.is_available() and device_name == "cuda" else "cpu")
     model, _ = load_model(checkpoint_path, device)
     records, _ = build_case_records(data_root, clinical_csv, cleaned_index_path=cleaned_index)
+    pixdim = tuple(step_cfg["data"]["pixdim"])
+    roi_size = tuple(step_cfg["data"]["roi_size"])
 
     loader = DataLoader(
-        Dataset(records, transform=get_eval_transforms()),
+        Dataset(records, transform=get_infer_transforms(pixdim=pixdim, roi_size=roi_size)),
         batch_size=1,
         shuffle=False,
         num_workers=common_cfg["runtime"]["num_workers"],
     )
     inferer = SlidingWindowInferer(
-        roi_size=tuple(common_cfg["data"]["roi_size"]),
-        sw_batch_size=1,
-        overlap=common_cfg["inference"]["overlap"],
+        roi_size=roi_size,
+        sw_batch_size=step_cfg["inference"]["sw_batch_size"],
+        overlap=step_cfg["inference"]["overlap"],
     )
 
     out_dir = ensure_dir(project_root / "outputs" / "inference")
@@ -101,13 +136,14 @@ def main() -> None:
                 inputs=batch["image"],
                 network=lambda x: model(x, batch["staging_features"].float(), batch["clinical_features"].float())["seg_logits"],
             )
+            cls_image = center_crop_or_pad(batch["image"], roi_size)
             logits = model(
-                batch["image"],
+                cls_image,
                 batch["staging_features"].float(),
                 batch["clinical_features"].float(),
             )
             seg_prob = torch.sigmoid(outputs)[0, 0]
-            pred_mask = (seg_prob > common_cfg["inference"]["threshold"]).float()
+            pred_mask = (seg_prob > step_cfg["inference"]["threshold"]).float()
 
             ct_path = Path(batch["ct_path"][0])
             original = nib.load(str(ct_path))

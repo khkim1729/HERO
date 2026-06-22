@@ -46,7 +46,9 @@ flowchart LR
 HERO/
 ├── configs/
 │   ├── common_config.yaml
-│   └── model_configs.yaml
+│   ├── step1_label_cleaning.yaml
+│   ├── step2_multitask.yaml
+│   └── step3_inference.yaml
 ├── hero/
 │   ├── data/
 │   ├── models/
@@ -84,22 +86,53 @@ Each patient folder is expected to contain:
 
 ## MONAI Transform Stack
 
-The training and evaluation loaders use the required MONAI preprocessing:
+The transform implementation is in [hero/data/transforms.py](hero/data/transforms.py).
+
+The sample 5-case cohort is not isotropic:
+
+- In-plane spacing is approximately `0.98-1.17 mm`.
+- Slice spacing varies from `1.5 mm` to `3.31 mm`.
+- The largest observed tumor bounding box in the sample subset is about `57.6 x 46.9 x 67.5 mm`.
+
+Based on that, the pipeline uses:
+
+- `pixdim=(1.0, 1.0, 2.0)` to reduce z-axis anisotropy without over-expanding memory.
+- `roi_size=(160, 160, 96)` which corresponds to about `160 x 160 x 192 mm` after resampling, large enough to cover the observed tumor extent with anatomical context.
+- `CropForegroundd` before cropping so the network focuses on the head-and-neck field instead of empty air.
+- Training-time fixed-size crop for stable batch memory.
+- Validation-time fixed-size crop for the multi-task heads.
+- Inference-time sliding-window segmentation on the foreground-cropped volume, while staging/prognosis heads consume a center-cropped ROI tensor to stay T4-safe.
+
+The current training stack is:
 
 ```python
-from monai.transforms import Compose, LoadImaged, EnsureChannelFirstd, EnsureTyped, Orientationd, Spacingd, CenterSpatialCropd, SpatialPadd, ScaleIntensityRangePercentilesd
+from monai.transforms import (
+    Compose,
+    CropForegroundd,
+    LoadImaged,
+    EnsureChannelFirstd,
+    EnsureTyped,
+    Orientationd,
+    Spacingd,
+    CenterSpatialCropd,
+    SpatialPadd,
+    ScaleIntensityRangePercentilesd,
+)
 
 train_transforms = Compose([
     LoadImaged(keys=["image", "label"]),
     EnsureChannelFirstd(keys=["image", "label"]),
     EnsureTyped(keys=["image", "label"]),
     Orientationd(keys=["image", "label"], axcodes="RAS"),
-    Spacingd(keys=["image", "label"], pixdim=(4.0, 4.0, 6.4), mode=("bilinear", "nearest")),
-    CenterSpatialCropd(keys=["image", "label"], roi_size=(64, 64, 64)),
-    SpatialPadd(keys=["image", "label"], spatial_size=(64, 64, 64)),
+    Spacingd(keys=["image", "label"], pixdim=(1.0, 1.0, 2.0), mode=("bilinear", "nearest")),
     ScaleIntensityRangePercentilesd(keys="image", lower=0, upper=99.5, b_min=0, b_max=1),
+    CropForegroundd(keys=["image", "label"], source_key="image", allow_smaller=True),
+    CenterSpatialCropd(keys=["image", "label"], roi_size=(160, 160, 96)),
+    SpatialPadd(keys=["image", "label"], spatial_size=(160, 160, 96)),
 ])
 ```
+
+The inference stack keeps the same spacing and intensity normalization, but omits the fixed crop before segmentation so `SlidingWindowInferer` can cover the full foreground volume.
 
 ## User Manual
 
@@ -117,35 +150,52 @@ If using Conda:
 conda activate hero
 ```
 
-### 2. Move into the repository
+### 2. Clone the repository and move into it
 
 ```bash
-cd /data/khkim/1_users/1_adelie/1_projects/3_hero/all_HERO/HERO
+git clone https://github.com/khkim1729/HERO.git
+cd HERO
 ```
 
 ### 3. Run EDA
 
 ```bash
-python3 eda_images.py --data-root data/sample_5 --output sample_slice_grid.png
-python3 eda_clinical.py --clinical-csv data/sample_5/HECKTOR_2026_training_data.csv --output-dir outputs/clinical
+python eda_images.py --data-root data/sample_5 --output sample_slice_grid.png
+python eda_clinical.py --clinical-csv data/sample_5/HECKTOR_2026_training_data.csv --output-dir outputs/clinical
 ```
 
-### 4. Edit the shared configuration
+### 4. Edit the configuration files
 
-Update `configs/common_config.yaml` to control:
+The repository now uses one global config plus one step-specific config per pipeline stage:
 
-- `paths`: data roots, clinical CSV, outputs, checkpoints.
-- `data.batch_size`: training batch size.
-- `optimization.learning_rate`: base optimizer LR.
-- `optimization.max_epochs`: main multitask training length.
-- `runtime.device`: `cuda` or `cpu`.
+- `configs/common_config.yaml`: paths, random seed, runtime, device, workers.
+- `configs/step1_label_cleaning.yaml`: label-cleaning model, spacing, ROI, folds, optimization.
+- `configs/step2_multitask.yaml`: multi-task model, spacing, ROI, losses, optimization, metric plotting.
+- `configs/step3_inference.yaml`: sliding-window inference and threshold settings.
+
+This split is intentional because step 1 and step 2 use different models and different experiment knobs. Keeping one giant model config becomes hard to track once multiple segmentation backbones, fusion heads, or inference settings are introduced.
+
+The most common edits are:
+
+- `paths.data_root`, `paths.full_training_root`, `paths.clinical_csv` in `configs/common_config.yaml`
+- `data.pixdim`, `data.roi_size`, `optimization.epochs` in `configs/step1_label_cleaning.yaml`
+- `data.pixdim`, `data.roi_size`, `optimization.max_epochs`, `losses.*` in `configs/step2_multitask.yaml`
+- `inference.overlap`, `inference.threshold` in `configs/step3_inference.yaml`
 
 ### 5. Run the 3-step pipeline
 
 ```bash
-python3 pipeline/step1_label_cleaning.py --common-config configs/common_config.yaml --model-config configs/model_configs.yaml
-python3 pipeline/step2_train_multitask.py --common-config configs/common_config.yaml --model-config configs/model_configs.yaml
-python3 pipeline/step3_inference.py --common-config configs/common_config.yaml
+python pipeline/step1_label_cleaning.py --common-config configs/common_config.yaml --step-config configs/step1_label_cleaning.yaml
+python pipeline/step2_train_multitask.py --common-config configs/common_config.yaml --step-config configs/step2_multitask.yaml
+python pipeline/step3_inference.py --common-config configs/common_config.yaml --step-config configs/step3_inference.yaml
+```
+
+For an explicit GPU selection sanity run:
+
+```bash
+CUDA_VISIBLE_DEVICES=2,3 python pipeline/step1_label_cleaning.py --common-config configs/common_config.yaml --step-config configs/step1_label_cleaning.yaml
+CUDA_VISIBLE_DEVICES=2,3 python pipeline/step2_train_multitask.py --common-config configs/common_config.yaml --step-config configs/step2_multitask.yaml
+CUDA_VISIBLE_DEVICES=2,3 python pipeline/step3_inference.py --common-config configs/common_config.yaml --step-config configs/step3_inference.yaml
 ```
 
 ### 6. Checkpoint management
@@ -164,6 +214,7 @@ This follows the intended convention of storing epoch and validation metrics in 
 - Processed clinical tables: `outputs/clinical/`
 - Cleaned label index: `outputs/cleaned_dataset_index.json`
 - Training history: `checkpoints/training_history.json`
+- Training metric grid: `outputs/training/training_metrics_grid.png`
 - Inference masks: `outputs/inference/segmentation/*.nii.gz`
 - Staging and prognosis table: `outputs/inference/staging_prognosis_predictions.csv`
 
@@ -190,3 +241,5 @@ This follows the intended convention of storing epoch and validation metrics in 
 - The code is modular so stronger losses, survival objectives, and ensembling can be added without changing the repository layout.
 - The data discovery logic is config-driven and will use the full HECKTOR 2026 training directory automatically when it becomes available.
 - The cleaned label index from step 1 is enforced during step 2 training to reduce supervision noise.
+- The sample 5-case sanity run was executed end-to-end on GPU, producing `outputs/cleaned_dataset_index.json`, `checkpoints/best_model_epoch_*.pth`, `outputs/training/training_metrics_grid.png`, segmentation NIfTI files, and `outputs/inference/staging_prognosis_predictions.csv`.
+- Metrics on the sample run are intentionally weak because the cleaned training subset contains only 4 cases after OOF filtering; this run is for pipeline validation, not for meaningful model selection.

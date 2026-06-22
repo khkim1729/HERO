@@ -1,16 +1,21 @@
-label_cleaning:
-  channels:
-    - 16
-    - 32
-    - 64
-    - 128
-  strides:
-    - 2
-    - 2
-    - 2
-  num_res_units: 2
-  noisy_diff_percentile: 80
-multitask_model:
+data:
+  pixdim:
+    - 1.0
+    - 1.0
+    - 2.0
+  roi_size:
+    - 160
+    - 160
+    - 96
+  batch_size: 1
+  val_batch_size: 1
+  val_ratio: 0.2
+optimization:
+  learning_rate: 0.0002
+  weight_decay: 0.00001
+  max_epochs: 3
+  grad_clip_norm: 1.0
+model:
   in_channels: 2
   encoder_dims:
     - 32
@@ -29,10 +34,6 @@ multitask_model:
   n_stage_classes: 6
   clinical_embed_dim: 64
   mlp_hidden_dim: 256
-  decoder_channels:
-    - 128
-    - 64
-    - 32
   prognosis_hidden_dim: 128
 losses:
   seg_weight: 1.0
@@ -40,4 +41,6 @@ losses:
   n_stage_weight: 0.5
   relapse_weight: 0.3
   rfs_weight: 0.3
+visualization:
+  metrics_grid_path: outputs/training/training_metrics_grid.png
 

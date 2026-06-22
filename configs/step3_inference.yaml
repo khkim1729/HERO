@@ -1,0 +1,13 @@
+data:
+  pixdim:
+    - 1.0
+    - 1.0
+    - 2.0
+  roi_size:
+    - 160
+    - 160
+    - 96
+inference:
+  sw_batch_size: 1
+  overlap: 0.5
+  threshold: 0.5

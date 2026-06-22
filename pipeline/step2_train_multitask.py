@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import math
+import sys
 from pathlib import Path
 
 import numpy as np
@@ -13,12 +14,17 @@ from sklearn.model_selection import train_test_split
 from torch import nn
 from tqdm import tqdm
 
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
 from hero.data.dataset import build_case_records
 from hero.data.transforms import get_eval_transforms, get_train_transforms
 from hero.models.multitask_uxnet import MultiTaskUXNet
 from hero.utils.config import load_yaml, resolve_path
 from hero.utils.metrics import binary_accuracy, concordance_index, dice_coefficient, masked_multiclass_accuracy
 from hero.utils.training import ensure_dir, save_json, set_seed, to_device
+from hero.utils.visualization import save_training_metrics_grid
 
 
 def choose_data_root(common_cfg: dict) -> Path:
@@ -54,14 +60,14 @@ def build_model(model_cfg: dict, clinical_dim: int, staging_dim: int) -> nn.Modu
 
 
 def compute_losses(outputs: dict[str, torch.Tensor], batch: dict, loss_cfg: dict, seg_loss: nn.Module) -> tuple[torch.Tensor, dict[str, float]]:
-    seg = seg_loss(outputs["seg_logits"], batch["label"]) * loss_cfg["seg_weight"]
+    seg = seg_loss(outputs["seg_logits"], batch["label"].float()) * loss_cfg["seg_weight"]
     t_loss = masked_cross_entropy(outputs["t_logits"], batch["t_stage"]) * loss_cfg["t_stage_weight"]
     n_loss = masked_cross_entropy(outputs["n_logits"], batch["n_stage"]) * loss_cfg["n_stage_weight"]
     relapse = F.binary_cross_entropy_with_logits(
         outputs["relapse_logit"].squeeze(1),
         batch["relapse"].float(),
     ) * loss_cfg["relapse_weight"]
-    rfs_target = -torch.log1p(batch["rfs_time"])
+    rfs_target = -torch.log1p(batch["rfs_time"].float())
     rfs = F.mse_loss(outputs["rfs_logit"].squeeze(1), rfs_target) * loss_cfg["rfs_weight"]
     total = seg + t_loss + n_loss + relapse + rfs
     return total, {
@@ -92,7 +98,7 @@ def evaluate(model: nn.Module, loader: DataLoader, device: torch.device) -> dict
                 batch["clinical_features"].float(),
             )
             probs = torch.sigmoid(outputs["seg_logits"])
-            dice_scores.extend([dice_coefficient(probs[idx], batch["label"][idx]) for idx in range(probs.shape[0])])
+            dice_scores.extend([dice_coefficient(probs[idx], batch["label"][idx].float()) for idx in range(probs.shape[0])])
             t_acc.append(masked_multiclass_accuracy(outputs["t_logits"], batch["t_stage"]))
             n_acc.append(masked_multiclass_accuracy(outputs["n_logits"], batch["n_stage"]))
             relapse_acc.append(binary_accuracy(outputs["relapse_logit"].squeeze(1), batch["relapse"]))
@@ -112,13 +118,13 @@ def evaluate(model: nn.Module, loader: DataLoader, device: torch.device) -> dict
 def main() -> None:
     parser = argparse.ArgumentParser(description="Step 2: Train the HECKTOR 2026 multi-task UX-Net.")
     parser.add_argument("--common-config", default="configs/common_config.yaml")
-    parser.add_argument("--model-config", default="configs/model_configs.yaml")
+    parser.add_argument("--step-config", default="configs/step2_multitask.yaml")
     args = parser.parse_args()
 
     common_cfg = load_yaml(args.common_config)
-    model_bundle = load_yaml(args.model_config)
-    model_cfg = model_bundle["multitask_model"]
-    loss_cfg = model_bundle["losses"]
+    step_cfg = load_yaml(args.step_config)
+    model_cfg = step_cfg["model"]
+    loss_cfg = step_cfg["losses"]
     set_seed(common_cfg["seed"], common_cfg["runtime"]["deterministic"])
 
     project_root = Path(common_cfg["paths"]["project_root"]).resolve()
@@ -126,18 +132,25 @@ def main() -> None:
     clinical_csv = resolve_path(project_root, common_cfg["paths"]["clinical_csv"])
     cleaned_index = resolve_path(project_root, common_cfg["paths"]["cleaned_index"])
     ckpt_dir = ensure_dir(resolve_path(project_root, common_cfg["paths"]["checkpoints_root"]))
+    metrics_grid_path = resolve_path(project_root, step_cfg["visualization"]["metrics_grid_path"])
 
     records, processor = build_case_records(data_root, clinical_csv, cleaned_index_path=cleaned_index)
-    train_records, val_records = train_test_split(records, test_size=0.2, random_state=common_cfg["seed"])
+    train_records, val_records = train_test_split(
+        records,
+        test_size=step_cfg["data"]["val_ratio"],
+        random_state=common_cfg["seed"],
+    )
+    pixdim = tuple(step_cfg["data"]["pixdim"])
+    roi_size = tuple(step_cfg["data"]["roi_size"])
     train_loader = DataLoader(
-        Dataset(train_records, transform=get_train_transforms()),
-        batch_size=common_cfg["data"]["batch_size"],
+        Dataset(train_records, transform=get_train_transforms(pixdim=pixdim, roi_size=roi_size)),
+        batch_size=step_cfg["data"]["batch_size"],
         shuffle=True,
         num_workers=common_cfg["runtime"]["num_workers"],
     )
     val_loader = DataLoader(
-        Dataset(val_records, transform=get_eval_transforms()),
-        batch_size=common_cfg["data"]["val_batch_size"],
+        Dataset(val_records, transform=get_eval_transforms(pixdim=pixdim, roi_size=roi_size)),
+        batch_size=step_cfg["data"]["val_batch_size"],
         shuffle=False,
         num_workers=common_cfg["runtime"]["num_workers"],
     )
@@ -151,8 +164,8 @@ def main() -> None:
     model = build_model(model_cfg, clinical_dim, staging_dim).to(device)
     optimizer = torch.optim.AdamW(
         model.parameters(),
-        lr=common_cfg["optimization"]["learning_rate"],
-        weight_decay=common_cfg["optimization"]["weight_decay"],
+        lr=step_cfg["optimization"]["learning_rate"],
+        weight_decay=step_cfg["optimization"]["weight_decay"],
     )
     scaler = torch.amp.GradScaler(enabled=bool(common_cfg["runtime"]["amp"] and device.type == "cuda"))
     seg_loss = DiceCELoss(sigmoid=True)
@@ -161,7 +174,7 @@ def main() -> None:
     history = []
     saved_paths = []
 
-    for epoch in range(1, common_cfg["optimization"]["max_epochs"] + 1):
+    for epoch in range(1, step_cfg["optimization"]["max_epochs"] + 1):
         model.train()
         epoch_losses = []
         for batch in tqdm(train_loader, desc=f"Epoch {epoch}"):
@@ -175,9 +188,9 @@ def main() -> None:
                 )
                 loss, _ = compute_losses(outputs, batch, loss_cfg, seg_loss)
             scaler.scale(loss).backward()
-            if common_cfg["optimization"]["grad_clip_norm"] is not None:
+            if step_cfg["optimization"]["grad_clip_norm"] is not None:
                 scaler.unscale_(optimizer)
-                torch.nn.utils.clip_grad_norm_(model.parameters(), common_cfg["optimization"]["grad_clip_norm"])
+                torch.nn.utils.clip_grad_norm_(model.parameters(), step_cfg["optimization"]["grad_clip_norm"])
             scaler.step(optimizer)
             scaler.update()
             epoch_losses.append(float(loss.item()))
@@ -211,6 +224,7 @@ def main() -> None:
         )
 
     save_json({"history": history, "saved_checkpoints": saved_paths}, ckpt_dir / "training_history.json")
+    save_training_metrics_grid(history, metrics_grid_path)
     print(f"Training complete. Best composite score: {best_score:.4f}")
 
 

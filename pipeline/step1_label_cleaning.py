@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import sys
 from pathlib import Path
 
 import numpy as np
@@ -13,8 +14,12 @@ from monai.transforms import EnsureTyped
 from torch import nn
 from tqdm import tqdm
 
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
 from hero.data.dataset import build_case_records, split_folds
-from hero.data.transforms import get_eval_transforms, get_train_transforms
+from hero.data.transforms import get_infer_transforms, get_train_transforms
 from hero.utils.config import load_yaml, resolve_path
 from hero.utils.metrics import dice_coefficient
 from hero.utils.training import ensure_dir, save_json, set_seed, to_device
@@ -41,11 +46,12 @@ def build_model(model_cfg: dict) -> nn.Module:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Step 1: OOF label cleaning for HECKTOR 2026.")
     parser.add_argument("--common-config", default="configs/common_config.yaml")
-    parser.add_argument("--model-config", default="configs/model_configs.yaml")
+    parser.add_argument("--step-config", default="configs/step1_label_cleaning.yaml")
     args = parser.parse_args()
 
     common_cfg = load_yaml(args.common_config)
-    model_cfg = load_yaml(args.model_config)["label_cleaning"]
+    step_cfg = load_yaml(args.step_config)
+    model_cfg = step_cfg["model"]
     set_seed(common_cfg["seed"], common_cfg["runtime"]["deterministic"])
 
     data_root = choose_data_root(common_cfg)
@@ -55,16 +61,18 @@ def main() -> None:
     ensure_dir(output_index.parent)
 
     records, _ = build_case_records(data_root, clinical_csv)
-    folds = split_folds(records, common_cfg["data"]["folds"], common_cfg["seed"])
-    train_transforms = get_train_transforms()
-    eval_transforms = get_eval_transforms()
+    folds = split_folds(records, step_cfg["data"]["folds"], common_cfg["seed"])
+    pixdim = tuple(step_cfg["data"]["pixdim"])
+    roi_size = tuple(step_cfg["data"]["roi_size"])
+    train_transforms = get_train_transforms(pixdim=pixdim, roi_size=roi_size)
+    eval_transforms = get_infer_transforms(pixdim=pixdim, roi_size=roi_size)
 
     device_name = common_cfg["runtime"]["device"]
     device = torch.device(device_name if torch.cuda.is_available() and device_name == "cuda" else "cpu")
     inferer = SlidingWindowInferer(
-        roi_size=tuple(common_cfg["data"]["roi_size"]),
-        sw_batch_size=common_cfg["inference"]["sw_batch_size"],
-        overlap=common_cfg["inference"]["overlap"],
+        roi_size=roi_size,
+        sw_batch_size=step_cfg["inference"]["sw_batch_size"],
+        overlap=step_cfg["inference"]["overlap"],
     )
     loss_fn = DiceCELoss(sigmoid=True)
 
@@ -76,13 +84,13 @@ def main() -> None:
         val_ds = Dataset(data=[records[i] for i in val_idx], transform=eval_transforms)
         train_loader = DataLoader(
             train_ds,
-            batch_size=common_cfg["data"]["batch_size"],
+            batch_size=step_cfg["data"]["batch_size"],
             shuffle=True,
             num_workers=common_cfg["runtime"]["num_workers"],
         )
         val_loader = DataLoader(
             val_ds,
-            batch_size=common_cfg["data"]["val_batch_size"],
+            batch_size=step_cfg["data"]["val_batch_size"],
             shuffle=False,
             num_workers=common_cfg["runtime"]["num_workers"],
         )
@@ -90,13 +98,13 @@ def main() -> None:
         model = build_model(model_cfg).to(device)
         optimizer = torch.optim.AdamW(
             model.parameters(),
-            lr=common_cfg["optimization"]["learning_rate"],
-            weight_decay=common_cfg["optimization"]["weight_decay"],
+            lr=step_cfg["optimization"]["learning_rate"],
+            weight_decay=step_cfg["optimization"]["weight_decay"],
         )
         scaler = torch.amp.GradScaler(enabled=bool(common_cfg["runtime"]["amp"] and device.type == "cuda"))
 
         model.train()
-        for _ in range(common_cfg["optimization"]["label_cleaning_epochs"]):
+        for _ in range(step_cfg["optimization"]["epochs"]):
             for batch in train_loader:
                 batch = to_device(batch, device)
                 optimizer.zero_grad(set_to_none=True)
@@ -122,7 +130,7 @@ def main() -> None:
                     per_case_dice[patient_id] = dice
 
     diffs = np.asarray(list(per_case_diff.values()), dtype=float)
-    threshold = float(np.percentile(diffs, model_cfg["noisy_diff_percentile"])) if len(diffs) else 1.0
+    threshold = float(np.percentile(diffs, step_cfg["label_cleaning"]["noisy_diff_percentile"])) if len(diffs) else 1.0
     clean_patient_ids = sorted([pid for pid, diff in per_case_diff.items() if diff <= threshold])
     noisy_patient_ids = sorted([pid for pid, diff in per_case_diff.items() if diff > threshold])
     payload = {
@@ -141,4 +149,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

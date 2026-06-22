@@ -1,0 +1,36 @@
+data:
+  image_modalities:
+    - CT
+    - PT
+  pixdim:
+    - 1.0
+    - 1.0
+    - 2.0
+  roi_size:
+    - 160
+    - 160
+    - 96
+  batch_size: 1
+  val_batch_size: 1
+  folds: 5
+optimization:
+  learning_rate: 0.0002
+  weight_decay: 0.00001
+  epochs: 2
+model:
+  channels:
+    - 16
+    - 32
+    - 64
+    - 128
+  strides:
+    - 2
+    - 2
+    - 2
+  num_res_units: 2
+label_cleaning:
+  noisy_diff_percentile: 80
+inference:
+  sw_batch_size: 1
+  overlap: 0.5
+
