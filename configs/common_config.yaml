@@ -1,0 +1,17 @@
+seed: 42
+paths:
+  project_root: .
+  data_root: data/sample_5
+  clinical_csv: data/sample_5/HECKTOR_2026_training_data.csv
+  full_training_root: data/hecktor2026_training
+  outputs_root: outputs
+  checkpoints_root: checkpoints
+  cleaned_index: outputs/cleaned_dataset_index.json
+  clinical_artifacts_dir: outputs/clinical
+  eda_dir: outputs/eda
+runtime:
+  device: cuda
+  num_workers: 2
+  amp: true
+  deterministic: false
+
