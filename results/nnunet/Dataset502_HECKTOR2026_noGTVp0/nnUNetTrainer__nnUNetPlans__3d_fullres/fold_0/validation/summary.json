@@ -1,0 +1,4014 @@
+{
+    "foreground_mean": {
+        "Dice": 0.6811190224294394,
+        "FN": 1249.702614379085,
+        "FP": 1197.9575163398692,
+        "IoU": 0.5640104731145203,
+        "TN": 55898378.64379085,
+        "TP": 4380.075163398693,
+        "n_pred": 5578.032679738562,
+        "n_ref": 5629.777777777777
+    },
+    "mean": {
+        "1": {
+            "Dice": 0.7471882279477376,
+            "FN": 1381.3464052287582,
+            "FP": 774.6862745098039,
+            "IoU": 0.6249454590656495,
+            "TN": 55898531.02614379,
+            "TP": 4519.320261437909,
+            "n_pred": 5294.006535947712,
+            "n_ref": 5900.666666666667
+        },
+        "2": {
+            "Dice": 0.6150498169111412,
+            "FN": 1118.0588235294117,
+            "FP": 1621.2287581699347,
+            "IoU": 0.5030754871633911,
+            "TN": 55898226.26143791,
+            "TP": 4240.830065359477,
+            "n_pred": 5862.058823529412,
+            "n_ref": 5358.888888888889
+        }
+    },
+    "metric_per_case": [
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.7856065503124326,
+                    "FN": 112,
+                    "FP": 883,
+                    "IoU": 0.6469127040454223,
+                    "TN": 23590142,
+                    "TP": 1823,
+                    "n_pred": 2706,
+                    "n_ref": 1935
+                },
+                "2": {
+                    "Dice": 0.8014414414414415,
+                    "FN": 574,
+                    "FP": 1079,
+                    "IoU": 0.6686710763680096,
+                    "TN": 23587971,
+                    "TP": 3336,
+                    "n_pred": 4415,
+                    "n_ref": 3910
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUM_001.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUM_001.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.48043534594454523,
+                    "FN": 1,
+                    "FP": 2004,
+                    "IoU": 0.31616643929058663,
+                    "TN": 64746636,
+                    "TP": 927,
+                    "n_pred": 2931,
+                    "n_ref": 928
+                },
+                "2": {
+                    "Dice": 0.24974924774322968,
+                    "FN": 266,
+                    "FP": 1230,
+                    "IoU": 0.14269340974212033,
+                    "TN": 64747823,
+                    "TP": 249,
+                    "n_pred": 1479,
+                    "n_ref": 515
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUM_007.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUM_007.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8727858293075684,
+                    "FN": 1046,
+                    "FP": 60,
+                    "IoU": 0.7742857142857142,
+                    "TN": 61861084,
+                    "TP": 3794,
+                    "n_pred": 3854,
+                    "n_ref": 4840
+                },
+                "2": {
+                    "Dice": 0.7289928789420143,
+                    "FN": 3135,
+                    "FP": 2193,
+                    "IoU": 0.5735553065471426,
+                    "TN": 61853490,
+                    "TP": 7166,
+                    "n_pred": 9359,
+                    "n_ref": 10301
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUM_008.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUM_008.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8324526239067055,
+                    "FN": 7167,
+                    "FP": 189,
+                    "IoU": 0.7129925868123294,
+                    "TN": 61840354,
+                    "TP": 18274,
+                    "n_pred": 18463,
+                    "n_ref": 25441
+                },
+                "2": {
+                    "Dice": 0.8819568392016874,
+                    "FN": 1920,
+                    "FP": 990,
+                    "IoU": 0.7888397068427545,
+                    "TN": 61852203,
+                    "TP": 10871,
+                    "n_pred": 11861,
+                    "n_ref": 12791
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUM_011.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUM_011.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.3858529819694868,
+                    "FN": 3526,
+                    "FP": 902,
+                    "IoU": 0.23904450936587043,
+                    "TN": 64219461,
+                    "TP": 1391,
+                    "n_pred": 2293,
+                    "n_ref": 4917
+                },
+                "2": {
+                    "Dice": 0.7844625112917796,
+                    "FN": 1008,
+                    "FP": 185,
+                    "IoU": 0.6453626634958383,
+                    "TN": 64221916,
+                    "TP": 2171,
+                    "n_pred": 2356,
+                    "n_ref": 3179
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUM_015.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUM_015.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.6778892845581094,
+                    "FN": 3,
+                    "FP": 1987,
+                    "IoU": 0.5127326150832517,
+                    "TN": 62648332,
+                    "TP": 2094,
+                    "n_pred": 4081,
+                    "n_ref": 2097
+                },
+                "2": {
+                    "Dice": 0.7197006045485078,
+                    "FN": 758,
+                    "FP": 2163,
+                    "IoU": 0.5621346125018738,
+                    "TN": 62645745,
+                    "TP": 3750,
+                    "n_pred": 5913,
+                    "n_ref": 4508
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUM_016.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUM_016.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.3957727063868893,
+                    "FN": 3914,
+                    "FP": 31,
+                    "IoU": 0.24670612946343326,
+                    "TN": 62122891,
+                    "TP": 1292,
+                    "n_pred": 1323,
+                    "n_ref": 5206
+                },
+                "2": {
+                    "Dice": 0.9225224418526561,
+                    "FN": 1345,
+                    "FP": 2116,
+                    "IoU": 0.8561871519986703,
+                    "TN": 62104062,
+                    "TP": 20605,
+                    "n_pred": 22721,
+                    "n_ref": 21950
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUM_036.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUM_036.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8969404186795491,
+                    "FN": 37,
+                    "FP": 859,
+                    "IoU": 0.8131386861313868,
+                    "TN": 64220485,
+                    "TP": 3899,
+                    "n_pred": 4758,
+                    "n_ref": 3936
+                },
+                "2": {
+                    "Dice": 0.7546651775326911,
+                    "FN": 9101,
+                    "FP": 1443,
+                    "IoU": 0.605993796943313,
+                    "TN": 64198519,
+                    "TP": 16217,
+                    "n_pred": 17660,
+                    "n_ref": 25318
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUM_039.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUM_039.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8888727166872862,
+                    "FN": 1506,
+                    "FP": 21,
+                    "IoU": 0.7999738014147236,
+                    "TN": 49013294,
+                    "TP": 6107,
+                    "n_pred": 6128,
+                    "n_ref": 7613
+                },
+                "2": {
+                    "Dice": 0.8900113434496929,
+                    "FN": 1213,
+                    "FP": 3926,
+                    "IoU": 0.8018202151864564,
+                    "TN": 48994997,
+                    "TP": 20792,
+                    "n_pred": 24718,
+                    "n_ref": 22005
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUM_044.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUM_044.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8377985462097611,
+                    "FN": 494,
+                    "FP": 1068,
+                    "IoU": 0.7208720514653324,
+                    "TN": 62908964,
+                    "TP": 4034,
+                    "n_pred": 5102,
+                    "n_ref": 4528
+                },
+                "2": {
+                    "Dice": 0.8312729904118675,
+                    "FN": 5292,
+                    "FP": 304,
+                    "IoU": 0.7112636086889221,
+                    "TN": 62895179,
+                    "TP": 13785,
+                    "n_pred": 14089,
+                    "n_ref": 19077
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUM_056.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUM_056.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.6777251184834123,
+                    "FN": 18,
+                    "FP": 2702,
+                    "IoU": 0.5125448028673835,
+                    "TN": 31189556,
+                    "TP": 2860,
+                    "n_pred": 5562,
+                    "n_ref": 2878
+                },
+                "2": {
+                    "Dice": 0.7554118639302784,
+                    "FN": 908,
+                    "FP": 832,
+                    "IoU": 0.6069573074316693,
+                    "TN": 31190709,
+                    "TP": 2687,
+                    "n_pred": 3519,
+                    "n_ref": 3595
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUM_063.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUM_063.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.6211278792692613,
+                    "FN": 13,
+                    "FP": 941,
+                    "IoU": 0.4504608294930876,
+                    "TN": 68942136,
+                    "TP": 782,
+                    "n_pred": 1723,
+                    "n_ref": 795
+                },
+                "2": {
+                    "Dice": 0.6920797945881888,
+                    "FN": 1228,
+                    "FP": 331,
+                    "IoU": 0.5291452733313199,
+                    "TN": 68940561,
+                    "TP": 1752,
+                    "n_pred": 2083,
+                    "n_ref": 2980
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUM_065.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUM_065.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8780487804878049,
+                    "FN": 2408,
+                    "FP": 242,
+                    "IoU": 0.782608695652174,
+                    "TN": 170905698,
+                    "TP": 9540,
+                    "n_pred": 9782,
+                    "n_ref": 11948
+                },
+                "2": {
+                    "Dice": 0.7134806762319651,
+                    "FN": 2941,
+                    "FP": 4228,
+                    "IoU": 0.5545821683752719,
+                    "TN": 170901793,
+                    "TP": 8926,
+                    "n_pred": 13154,
+                    "n_ref": 11867
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUP_009.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUP_009.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8867225874707172,
+                    "FN": 1209,
+                    "FP": 290,
+                    "IoU": 0.7964974205810481,
+                    "TN": 148890426,
+                    "TP": 5867,
+                    "n_pred": 6157,
+                    "n_ref": 7076
+                },
+                "2": {
+                    "Dice": 0.6941209714600157,
+                    "FN": 277,
+                    "FP": 20290,
+                    "IoU": 0.5315354303806118,
+                    "TN": 148853889,
+                    "TP": 23336,
+                    "n_pred": 43626,
+                    "n_ref": 23613
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUP_011.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUP_011.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8993000999857164,
+                    "FN": 138,
+                    "FP": 1272,
+                    "IoU": 0.8170256942642097,
+                    "TN": 170910182,
+                    "TP": 6296,
+                    "n_pred": 7568,
+                    "n_ref": 6434
+                },
+                "2": {
+                    "Dice": 0.4779665699682277,
+                    "FN": 46,
+                    "FP": 7512,
+                    "IoU": 0.31403158467961517,
+                    "TN": 170906870,
+                    "TP": 3460,
+                    "n_pred": 10972,
+                    "n_ref": 3506
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUP_012.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUP_012.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.9042554524158493,
+                    "FN": 21680,
+                    "FP": 1249,
+                    "IoU": 0.8252429404367212,
+                    "TN": 148766587,
+                    "TP": 108276,
+                    "n_pred": 109525,
+                    "n_ref": 129956
+                },
+                "2": {
+                    "Dice": 0.46396396396396394,
+                    "FN": 70,
+                    "FP": 168,
+                    "IoU": 0.3020527859237537,
+                    "TN": 148897451,
+                    "TP": 103,
+                    "n_pred": 271,
+                    "n_ref": 173
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUP_019.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUP_019.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.648107232287524,
+                    "FN": 128,
+                    "FP": 2261,
+                    "IoU": 0.4794072782741338,
+                    "TN": 192933395,
+                    "TP": 2200,
+                    "n_pred": 4461,
+                    "n_ref": 2328
+                },
+                "2": {
+                    "Dice": 0.24073133570340274,
+                    "FN": 0,
+                    "FP": 1495,
+                    "IoU": 0.13683602771362588,
+                    "TN": 192936252,
+                    "TP": 237,
+                    "n_pred": 1732,
+                    "n_ref": 237
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUP_027.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUP_027.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.893043168034249,
+                    "FN": 779,
+                    "FP": 3718,
+                    "IoU": 0.8067551888616733,
+                    "TN": 170894617,
+                    "TP": 18774,
+                    "n_pred": 22492,
+                    "n_ref": 19553
+                },
+                "2": {
+                    "Dice": 0.0,
+                    "FN": 0,
+                    "FP": 1401,
+                    "IoU": 0.0,
+                    "TN": 170916487,
+                    "TP": 0,
+                    "n_pred": 1401,
+                    "n_ref": 0
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUP_035.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUP_035.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8743830600222895,
+                    "FN": 46,
+                    "FP": 743,
+                    "IoU": 0.7768033946251768,
+                    "TN": 170914353,
+                    "TP": 2746,
+                    "n_pred": 3489,
+                    "n_ref": 2792
+                },
+                "2": {
+                    "Dice": 0.9160296887116428,
+                    "FN": 446,
+                    "FP": 1070,
+                    "IoU": 0.8450689831374553,
+                    "TN": 170908103,
+                    "TP": 8269,
+                    "n_pred": 9339,
+                    "n_ref": 8715
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUP_051.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUP_051.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.9094717244589249,
+                    "FN": 2070,
+                    "FP": 264,
+                    "IoU": 0.8339735381988903,
+                    "TN": 148883734,
+                    "TP": 11724,
+                    "n_pred": 11988,
+                    "n_ref": 13794
+                },
+                "2": {
+                    "Dice": 0.05139472678639664,
+                    "FN": 35,
+                    "FP": 29755,
+                    "IoU": 0.026375134817138934,
+                    "TN": 148867195,
+                    "TP": 807,
+                    "n_pred": 30562,
+                    "n_ref": 842
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUP_060.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUP_060.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.37511006750807163,
+                    "FN": 415,
+                    "FP": 8101,
+                    "IoU": 0.23085260115606937,
+                    "TN": 170906816,
+                    "TP": 2556,
+                    "n_pred": 10657,
+                    "n_ref": 2971
+                },
+                "2": {
+                    "Dice": 0.0,
+                    "FN": 0,
+                    "FP": 1845,
+                    "IoU": 0.0,
+                    "TN": 170916043,
+                    "TP": 0,
+                    "n_pred": 1845,
+                    "n_ref": 0
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUP_062.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUP_062.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.7593395597064709,
+                    "FN": 2881,
+                    "FP": 5,
+                    "IoU": 0.6120446296545234,
+                    "TN": 148890353,
+                    "TP": 4553,
+                    "n_pred": 4558,
+                    "n_ref": 7434
+                },
+                "2": {
+                    "Dice": 0.0,
+                    "FN": 911,
+                    "FP": 0,
+                    "IoU": 0.0,
+                    "TN": 148896881,
+                    "TP": 0,
+                    "n_pred": 0,
+                    "n_ref": 911
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUP_064.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUP_064.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8442839641498485,
+                    "FN": 2035,
+                    "FP": 380,
+                    "IoU": 0.7305288997991519,
+                    "TN": 170908926,
+                    "TP": 6547,
+                    "n_pred": 6927,
+                    "n_ref": 8582
+                },
+                "2": {
+                    "Dice": 0.0,
+                    "FN": 0,
+                    "FP": 3722,
+                    "IoU": 0.0,
+                    "TN": 170914166,
+                    "TP": 0,
+                    "n_pred": 3722,
+                    "n_ref": 0
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUP_068.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUP_068.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8538744382405011,
+                    "FN": 372,
+                    "FP": 701,
+                    "IoU": 0.7450095057034221,
+                    "TN": 148893584,
+                    "TP": 3135,
+                    "n_pred": 3836,
+                    "n_ref": 3507
+                },
+                "2": {
+                    "Dice": 0.7452065248497568,
+                    "FN": 390,
+                    "FP": 2281,
+                    "IoU": 0.5938877907860727,
+                    "TN": 148891215,
+                    "TP": 3906,
+                    "n_pred": 6187,
+                    "n_ref": 4296
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUP_072.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUP_072.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8160564622849581,
+                    "FN": 264,
+                    "FP": 153,
+                    "IoU": 0.6892697466467959,
+                    "TN": 36436674,
+                    "TP": 925,
+                    "n_pred": 1078,
+                    "n_ref": 1189
+                },
+                "2": {
+                    "Dice": 0.8736959384179074,
+                    "FN": 394,
+                    "FP": 2100,
+                    "IoU": 0.7757194244604316,
+                    "TN": 36426896,
+                    "TP": 8626,
+                    "n_pred": 10726,
+                    "n_ref": 9020
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUS_005.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUS_005.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8904507998061076,
+                    "FN": 412,
+                    "FP": 40,
+                    "IoU": 0.8025338575797292,
+                    "TN": 33814287,
+                    "TP": 1837,
+                    "n_pred": 1877,
+                    "n_ref": 2249
+                },
+                "2": {
+                    "Dice": 0.6954365079365079,
+                    "FN": 302,
+                    "FP": 312,
+                    "IoU": 0.5330798479087453,
+                    "TN": 33815261,
+                    "TP": 701,
+                    "n_pred": 1013,
+                    "n_ref": 1003
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUS_007.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUS_007.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8308370044052863,
+                    "FN": 60,
+                    "FP": 324,
+                    "IoU": 0.7106254709871892,
+                    "TN": 33815249,
+                    "TP": 943,
+                    "n_pred": 1267,
+                    "n_ref": 1003
+                },
+                "2": {
+                    "Dice": 0.0,
+                    "FN": 0,
+                    "FP": 20,
+                    "IoU": 0.0,
+                    "TN": 33816556,
+                    "TP": 0,
+                    "n_pred": 20,
+                    "n_ref": 0
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUS_008.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUS_008.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.731006160164271,
+                    "FN": 692,
+                    "FP": 356,
+                    "IoU": 0.5760517799352751,
+                    "TN": 53212760,
+                    "TP": 1424,
+                    "n_pred": 1780,
+                    "n_ref": 2116
+                },
+                "2": {
+                    "Dice": 0.8358410249926245,
+                    "FN": 3091,
+                    "FP": 804,
+                    "IoU": 0.7179784229961624,
+                    "TN": 53201421,
+                    "TP": 9916,
+                    "n_pred": 10720,
+                    "n_ref": 13007
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUS_010.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUS_010.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.192090395480226,
+                    "FN": 1105,
+                    "FP": 3471,
+                    "IoU": 0.10625,
+                    "TN": 52685824,
+                    "TP": 544,
+                    "n_pred": 4015,
+                    "n_ref": 1649
+                },
+                "2": {
+                    "Dice": 0.0,
+                    "FN": 770,
+                    "FP": 0,
+                    "IoU": 0.0,
+                    "TN": 52690174,
+                    "TP": 0,
+                    "n_pred": 0,
+                    "n_ref": 770
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUS_021.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUS_021.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.4132231404958678,
+                    "FN": 1871,
+                    "FP": 46,
+                    "IoU": 0.2604166666666667,
+                    "TN": 52688352,
+                    "TP": 675,
+                    "n_pred": 721,
+                    "n_ref": 2546
+                },
+                "2": {
+                    "Dice": NaN,
+                    "FN": 0,
+                    "FP": 0,
+                    "IoU": NaN,
+                    "TN": 52690944,
+                    "TP": 0,
+                    "n_pred": 0,
+                    "n_ref": 0
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUS_030.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUS_030.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.9342241677226126,
+                    "FN": 62,
+                    "FP": 509,
+                    "IoU": 0.8765672287073065,
+                    "TN": 55307758,
+                    "TP": 4055,
+                    "n_pred": 4564,
+                    "n_ref": 4117
+                },
+                "2": {
+                    "Dice": NaN,
+                    "FN": 0,
+                    "FP": 0,
+                    "IoU": NaN,
+                    "TN": 55312384,
+                    "TP": 0,
+                    "n_pred": 0,
+                    "n_ref": 0
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUS_031.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUS_031.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8935685828116107,
+                    "FN": 70,
+                    "FP": 117,
+                    "IoU": 0.8076131687242798,
+                    "TN": 28572724,
+                    "TP": 785,
+                    "n_pred": 902,
+                    "n_ref": 855
+                },
+                "2": {
+                    "Dice": 0.8713189362841335,
+                    "FN": 427,
+                    "FP": 294,
+                    "IoU": 0.7719797596457938,
+                    "TN": 28570534,
+                    "TP": 2441,
+                    "n_pred": 2735,
+                    "n_ref": 2868
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUS_040.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUS_040.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8815977175463623,
+                    "FN": 15,
+                    "FP": 483,
+                    "IoU": 0.7882653061224489,
+                    "TN": 37746384,
+                    "TP": 1854,
+                    "n_pred": 2337,
+                    "n_ref": 1869
+                },
+                "2": {
+                    "Dice": 0.6665191414029653,
+                    "FN": 242,
+                    "FP": 1265,
+                    "IoU": 0.49983405243942913,
+                    "TN": 37745723,
+                    "TP": 1506,
+                    "n_pred": 2771,
+                    "n_ref": 1748
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUS_042.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUS_042.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.6905005107252298,
+                    "FN": 36,
+                    "FP": 1176,
+                    "IoU": 0.5273010920436817,
+                    "TN": 30668284,
+                    "TP": 1352,
+                    "n_pred": 2528,
+                    "n_ref": 1388
+                },
+                "2": {
+                    "Dice": 0.0,
+                    "FN": 0,
+                    "FP": 127,
+                    "IoU": 0.0,
+                    "TN": 30670721,
+                    "TP": 0,
+                    "n_pred": 127,
+                    "n_ref": 0
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUS_053.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUS_053.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.9055407209612817,
+                    "FN": 951,
+                    "FP": 181,
+                    "IoU": 0.8273863982921622,
+                    "TN": 35120738,
+                    "TP": 5426,
+                    "n_pred": 5607,
+                    "n_ref": 6377
+                },
+                "2": {
+                    "Dice": 0.22415291051259775,
+                    "FN": 134,
+                    "FP": 759,
+                    "IoU": 0.12622309197651663,
+                    "TN": 35126274,
+                    "TP": 129,
+                    "n_pred": 888,
+                    "n_ref": 263
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUS_060.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUS_060.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.9040490797546012,
+                    "FN": 279,
+                    "FP": 894,
+                    "IoU": 0.8248992386923422,
+                    "TN": 33285589,
+                    "TP": 5526,
+                    "n_pred": 6420,
+                    "n_ref": 5805
+                },
+                "2": {
+                    "Dice": 0.6912686927158708,
+                    "FN": 476,
+                    "FP": 804,
+                    "IoU": 0.5281975672687063,
+                    "TN": 33289575,
+                    "TP": 1433,
+                    "n_pred": 2237,
+                    "n_ref": 1909
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUS_077.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUS_077.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.9159253945480631,
+                    "FN": 332,
+                    "FP": 254,
+                    "IoU": 0.8448914769719428,
+                    "TN": 34337086,
+                    "TP": 3192,
+                    "n_pred": 3446,
+                    "n_ref": 3524
+                },
+                "2": {
+                    "Dice": 0.8453350031308704,
+                    "FN": 924,
+                    "FP": 311,
+                    "IoU": 0.7321041214750542,
+                    "TN": 34336254,
+                    "TP": 3375,
+                    "n_pred": 3686,
+                    "n_ref": 4299
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUS_080.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUS_080.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.9428549512924752,
+                    "FN": 305,
+                    "FP": 440,
+                    "IoU": 0.8918879698157016,
+                    "TN": 35120405,
+                    "TP": 6146,
+                    "n_pred": 6586,
+                    "n_ref": 6451
+                },
+                "2": {
+                    "Dice": 0.6337209302325582,
+                    "FN": 282,
+                    "FP": 96,
+                    "IoU": 0.46382978723404256,
+                    "TN": 35126591,
+                    "TP": 327,
+                    "n_pred": 423,
+                    "n_ref": 609
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUS_081.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUS_081.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.9497293116782676,
+                    "FN": 346,
+                    "FP": 434,
+                    "IoU": 0.9042709867452136,
+                    "TN": 35119148,
+                    "TP": 7368,
+                    "n_pred": 7802,
+                    "n_ref": 7714
+                },
+                "2": {
+                    "Dice": 0.8868913857677903,
+                    "FN": 66,
+                    "FP": 85,
+                    "IoU": 0.7967698519515478,
+                    "TN": 35126553,
+                    "TP": 592,
+                    "n_pred": 677,
+                    "n_ref": 658
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUS_083.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUS_083.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.9519119351100811,
+                    "FN": 84,
+                    "FP": 82,
+                    "IoU": 0.908236594803759,
+                    "TN": 32504047,
+                    "TP": 1643,
+                    "n_pred": 1725,
+                    "n_ref": 1727
+                },
+                "2": {
+                    "Dice": 0.761233908185572,
+                    "FN": 1383,
+                    "FP": 583,
+                    "IoU": 0.6145098039215686,
+                    "TN": 32500756,
+                    "TP": 3134,
+                    "n_pred": 3717,
+                    "n_ref": 4517
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUS_088.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUS_088.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8282828282828283,
+                    "FN": 14,
+                    "FP": 37,
+                    "IoU": 0.7068965517241379,
+                    "TN": 34602834,
+                    "TP": 123,
+                    "n_pred": 160,
+                    "n_ref": 137
+                },
+                "2": {
+                    "Dice": 0.8647676991150443,
+                    "FN": 50,
+                    "FP": 928,
+                    "IoU": 0.7617539585870889,
+                    "TN": 34598903,
+                    "TP": 3127,
+                    "n_pred": 4055,
+                    "n_ref": 3177
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUS_095.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUS_095.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.47619047619047616,
+                    "FN": 0,
+                    "FP": 1320,
+                    "IoU": 0.3125,
+                    "TN": 38271104,
+                    "TP": 600,
+                    "n_pred": 1920,
+                    "n_ref": 600
+                },
+                "2": {
+                    "Dice": 0.0,
+                    "FN": 554,
+                    "FP": 0,
+                    "IoU": 0.0,
+                    "TN": 38272470,
+                    "TP": 0,
+                    "n_pred": 0,
+                    "n_ref": 554
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUS_096.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUS_096.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.9075512876473156,
+                    "FN": 744,
+                    "FP": 315,
+                    "IoU": 0.8307495604922487,
+                    "TN": 37742479,
+                    "TP": 5198,
+                    "n_pred": 5513,
+                    "n_ref": 5942
+                },
+                "2": {
+                    "Dice": 0.75211701308699,
+                    "FN": 3564,
+                    "FP": 300,
+                    "IoU": 0.6027143738433066,
+                    "TN": 37739010,
+                    "TP": 5862,
+                    "n_pred": 6162,
+                    "n_ref": 9426
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUS_097.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUS_097.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.0,
+                    "FN": 160,
+                    "FP": 0,
+                    "IoU": 0.0,
+                    "TN": 40632160,
+                    "TP": 0,
+                    "n_pred": 0,
+                    "n_ref": 160
+                },
+                "2": {
+                    "Dice": NaN,
+                    "FN": 0,
+                    "FP": 0,
+                    "IoU": NaN,
+                    "TN": 40632320,
+                    "TP": 0,
+                    "n_pred": 0,
+                    "n_ref": 0
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUV_001.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUV_001.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8194444444444444,
+                    "FN": 683,
+                    "FP": 71,
+                    "IoU": 0.6941176470588235,
+                    "TN": 17561183,
+                    "TP": 1711,
+                    "n_pred": 1782,
+                    "n_ref": 2394
+                },
+                "2": {
+                    "Dice": 0.701180744777475,
+                    "FN": 219,
+                    "FP": 110,
+                    "IoU": 0.5398601398601398,
+                    "TN": 17562933,
+                    "TP": 386,
+                    "n_pred": 496,
+                    "n_ref": 605
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUV_014.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUV_014.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.9451238111083382,
+                    "FN": 495,
+                    "FP": 1484,
+                    "IoU": 0.8959571000473161,
+                    "TN": 31176115,
+                    "TP": 17042,
+                    "n_pred": 18526,
+                    "n_ref": 17537
+                },
+                "2": {
+                    "Dice": 0.09245283018867924,
+                    "FN": 224,
+                    "FP": 738,
+                    "IoU": 0.04846686449060336,
+                    "TN": 31194125,
+                    "TP": 49,
+                    "n_pred": 787,
+                    "n_ref": 273
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUV_020.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUV_020.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.9297368421052632,
+                    "FN": 391,
+                    "FP": 143,
+                    "IoU": 0.8686992869436931,
+                    "TN": 87814173,
+                    "TP": 3533,
+                    "n_pred": 3676,
+                    "n_ref": 3924
+                },
+                "2": {
+                    "Dice": 0.6729166666666667,
+                    "FN": 290,
+                    "FP": 24,
+                    "IoU": 0.5070643642072213,
+                    "TN": 87817603,
+                    "TP": 323,
+                    "n_pred": 347,
+                    "n_ref": 613
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUV_038.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUV_038.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.7509433962264151,
+                    "FN": 228,
+                    "FP": 36,
+                    "IoU": 0.6012084592145015,
+                    "TN": 87817578,
+                    "TP": 398,
+                    "n_pred": 434,
+                    "n_ref": 626
+                },
+                "2": {
+                    "Dice": 0.43814747105423524,
+                    "FN": 1463,
+                    "FP": 381,
+                    "IoU": 0.28053062817011315,
+                    "TN": 87815677,
+                    "TP": 719,
+                    "n_pred": 1100,
+                    "n_ref": 2182
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUV_041.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUV_041.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8919301557338367,
+                    "FN": 149,
+                    "FP": 80,
+                    "IoU": 0.8049403747870528,
+                    "TN": 87817066,
+                    "TP": 945,
+                    "n_pred": 1025,
+                    "n_ref": 1094
+                },
+                "2": {
+                    "Dice": 0.7857142857142857,
+                    "FN": 1118,
+                    "FP": 652,
+                    "IoU": 0.6470588235294118,
+                    "TN": 87813225,
+                    "TP": 3245,
+                    "n_pred": 3897,
+                    "n_ref": 4363
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUV_044.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUV_044.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.9147640511452488,
+                    "FN": 3390,
+                    "FP": 1243,
+                    "IoU": 0.8429172034990168,
+                    "TN": 102730954,
+                    "TP": 24861,
+                    "n_pred": 26104,
+                    "n_ref": 28251
+                },
+                "2": {
+                    "Dice": 0.5669717138103162,
+                    "FN": 1804,
+                    "FP": 278,
+                    "IoU": 0.3956458635703919,
+                    "TN": 102757003,
+                    "TP": 1363,
+                    "n_pred": 1641,
+                    "n_ref": 3167
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/CHUV_053.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/CHUV_053.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.9176793056190041,
+                    "FN": 659,
+                    "FP": 2044,
+                    "IoU": 0.8478811413135235,
+                    "TN": 23837335,
+                    "TP": 15066,
+                    "n_pred": 17110,
+                    "n_ref": 15725
+                },
+                "2": {
+                    "Dice": 0.7297432310920172,
+                    "FN": 122,
+                    "FP": 2583,
+                    "IoU": 0.5744848198835929,
+                    "TN": 23848747,
+                    "TP": 3652,
+                    "n_pred": 6235,
+                    "n_ref": 3774
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/HGJ_007.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/HGJ_007.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.9372466353170099,
+                    "FN": 507,
+                    "FP": 654,
+                    "IoU": 0.8819041806530363,
+                    "TN": 23845273,
+                    "TP": 8670,
+                    "n_pred": 9324,
+                    "n_ref": 9177
+                },
+                "2": {
+                    "Dice": 0.8267077964077815,
+                    "FN": 2571,
+                    "FP": 912,
+                    "IoU": 0.704605207361547,
+                    "TN": 23843313,
+                    "TP": 8308,
+                    "n_pred": 9220,
+                    "n_ref": 10879
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/HGJ_025.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/HGJ_025.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.9087656529516994,
+                    "FN": 214,
+                    "FP": 92,
+                    "IoU": 0.8327868852459016,
+                    "TN": 23853274,
+                    "TP": 1524,
+                    "n_pred": 1616,
+                    "n_ref": 1738
+                },
+                "2": {
+                    "Dice": 0.9327559244556718,
+                    "FN": 209,
+                    "FP": 350,
+                    "IoU": 0.8739855725879171,
+                    "TN": 23850668,
+                    "TP": 3877,
+                    "n_pred": 4227,
+                    "n_ref": 4086
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/HGJ_030.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/HGJ_030.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.7418672308912986,
+                    "FN": 229,
+                    "FP": 1723,
+                    "IoU": 0.5896573470674795,
+                    "TN": 23850347,
+                    "TP": 2805,
+                    "n_pred": 4528,
+                    "n_ref": 3034
+                },
+                "2": {
+                    "Dice": 0.05102040816326531,
+                    "FN": 2616,
+                    "FP": 174,
+                    "IoU": 0.02617801047120419,
+                    "TN": 23852239,
+                    "TP": 75,
+                    "n_pred": 249,
+                    "n_ref": 2691
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/HGJ_032.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/HGJ_032.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.9421466632834306,
+                    "FN": 390,
+                    "FP": 66,
+                    "IoU": 0.8906212520988247,
+                    "TN": 23850935,
+                    "TP": 3713,
+                    "n_pred": 3779,
+                    "n_ref": 4103
+                },
+                "2": {
+                    "Dice": 0.755452270289596,
+                    "FN": 455,
+                    "FP": 913,
+                    "IoU": 0.6070094800344729,
+                    "TN": 23851623,
+                    "TP": 2113,
+                    "n_pred": 3026,
+                    "n_ref": 2568
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/HGJ_035.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/HGJ_035.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.9188958046277379,
+                    "FN": 1382,
+                    "FP": 325,
+                    "IoU": 0.8499604465148984,
+                    "TN": 23843727,
+                    "TP": 9670,
+                    "n_pred": 9995,
+                    "n_ref": 11052
+                },
+                "2": {
+                    "Dice": 0.23441108545034642,
+                    "FN": 43,
+                    "FP": 1283,
+                    "IoU": 0.1327665140614781,
+                    "TN": 23853575,
+                    "TP": 203,
+                    "n_pred": 1486,
+                    "n_ref": 246
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/HGJ_062.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/HGJ_062.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.7072814243954292,
+                    "FN": 71,
+                    "FP": 4335,
+                    "IoU": 0.5471271456470347,
+                    "TN": 23845375,
+                    "TP": 5323,
+                    "n_pred": 9658,
+                    "n_ref": 5394
+                },
+                "2": {
+                    "Dice": NaN,
+                    "FN": 0,
+                    "FP": 0,
+                    "IoU": NaN,
+                    "TN": 23855104,
+                    "TP": 0,
+                    "n_pred": 0,
+                    "n_ref": 0
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/HGJ_072.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/HGJ_072.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8920691711389386,
+                    "FN": 61,
+                    "FP": 1206,
+                    "IoU": 0.8051668460710442,
+                    "TN": 23848601,
+                    "TP": 5236,
+                    "n_pred": 6442,
+                    "n_ref": 5297
+                },
+                "2": {
+                    "Dice": 0.8841341102302035,
+                    "FN": 1252,
+                    "FP": 1174,
+                    "IoU": 0.7923300804656737,
+                    "TN": 23843422,
+                    "TP": 9256,
+                    "n_pred": 10430,
+                    "n_ref": 10508
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/HGJ_073.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/HGJ_073.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8911240515263809,
+                    "FN": 198,
+                    "FP": 419,
+                    "IoU": 0.8036282622533418,
+                    "TN": 23851962,
+                    "TP": 2525,
+                    "n_pred": 2944,
+                    "n_ref": 2723
+                },
+                "2": {
+                    "Dice": 0.24872579001019368,
+                    "FN": 112,
+                    "FP": 625,
+                    "IoU": 0.1420256111757858,
+                    "TN": 23854245,
+                    "TP": 122,
+                    "n_pred": 747,
+                    "n_ref": 234
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/HGJ_078.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/HGJ_078.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.7533632286995515,
+                    "FN": 35,
+                    "FP": 845,
+                    "IoU": 0.60431654676259,
+                    "TN": 23852880,
+                    "TP": 1344,
+                    "n_pred": 2189,
+                    "n_ref": 1379
+                },
+                "2": {
+                    "Dice": 0.7612958226768969,
+                    "FN": 519,
+                    "FP": 1161,
+                    "IoU": 0.6145905024088094,
+                    "TN": 23850745,
+                    "TP": 2679,
+                    "n_pred": 3840,
+                    "n_ref": 3198
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/HGJ_081.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/HGJ_081.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8378870673952641,
+                    "FN": 662,
+                    "FP": 1207,
+                    "IoU": 0.7210031347962382,
+                    "TN": 23848405,
+                    "TP": 4830,
+                    "n_pred": 6037,
+                    "n_ref": 5492
+                },
+                "2": {
+                    "Dice": 0.6912060138681874,
+                    "FN": 517,
+                    "FP": 9013,
+                    "IoU": 0.5281243810655576,
+                    "TN": 23834908,
+                    "TP": 10666,
+                    "n_pred": 19679,
+                    "n_ref": 11183
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/HGJ_082.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/HGJ_082.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8949301983835415,
+                    "FN": 610,
+                    "FP": 105,
+                    "IoU": 0.8098404255319149,
+                    "TN": 23851344,
+                    "TP": 3045,
+                    "n_pred": 3150,
+                    "n_ref": 3655
+                },
+                "2": {
+                    "Dice": 0.7367838361472461,
+                    "FN": 576,
+                    "FP": 375,
+                    "IoU": 0.5832602979842244,
+                    "TN": 23852822,
+                    "TP": 1331,
+                    "n_pred": 1706,
+                    "n_ref": 1907
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/HMR_004.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/HMR_004.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.33575013943112103,
+                    "FN": 0,
+                    "FP": 1191,
+                    "IoU": 0.2017426273458445,
+                    "TN": 69990956,
+                    "TP": 301,
+                    "n_pred": 1492,
+                    "n_ref": 301
+                },
+                "2": {
+                    "Dice": 0.4325767690253672,
+                    "FN": 284,
+                    "FP": 141,
+                    "IoU": 0.27597955706984667,
+                    "TN": 69991861,
+                    "TP": 162,
+                    "n_pred": 303,
+                    "n_ref": 446
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/HMR_013.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/HMR_013.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8914529286396707,
+                    "FN": 2316,
+                    "FP": 638,
+                    "IoU": 0.8041633518960488,
+                    "TN": 69977364,
+                    "TP": 12130,
+                    "n_pred": 12768,
+                    "n_ref": 14446
+                },
+                "2": {
+                    "Dice": 0.22263450834879406,
+                    "FN": 417,
+                    "FP": 2,
+                    "IoU": 0.12526096033402923,
+                    "TN": 69991969,
+                    "TP": 60,
+                    "n_pred": 62,
+                    "n_ref": 477
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/HMR_028.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/HMR_028.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.879284649776453,
+                    "FN": 336,
+                    "FP": 1122,
+                    "IoU": 0.7845744680851063,
+                    "TN": 23848336,
+                    "TP": 5310,
+                    "n_pred": 6432,
+                    "n_ref": 5646
+                },
+                "2": {
+                    "Dice": 0.5650474595198214,
+                    "FN": 534,
+                    "FP": 245,
+                    "IoU": 0.39377431906614785,
+                    "TN": 23853819,
+                    "TP": 506,
+                    "n_pred": 751,
+                    "n_ref": 1040
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/HMR_040.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/HMR_040.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.7835994820889081,
+                    "FN": 2505,
+                    "FP": 2,
+                    "IoU": 0.6441952881067272,
+                    "TN": 69985402,
+                    "TP": 4539,
+                    "n_pred": 4541,
+                    "n_ref": 7044
+                },
+                "2": {
+                    "Dice": 0.821490321764433,
+                    "FN": 2258,
+                    "FP": 1975,
+                    "IoU": 0.6970586130394332,
+                    "TN": 69978475,
+                    "TP": 9740,
+                    "n_pred": 11715,
+                    "n_ref": 11998
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_003.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_003.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.6360786113022865,
+                    "FN": 3409,
+                    "FP": 1350,
+                    "IoU": 0.4663601704418031,
+                    "TN": 58449194,
+                    "TP": 4159,
+                    "n_pred": 5509,
+                    "n_ref": 7568
+                },
+                "2": {
+                    "Dice": 0.6517150395778364,
+                    "FN": 125,
+                    "FP": 139,
+                    "IoU": 0.48336594911937375,
+                    "TN": 58457601,
+                    "TP": 247,
+                    "n_pred": 386,
+                    "n_ref": 372
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_004.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_004.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.7189412266970258,
+                    "FN": 3815,
+                    "FP": 135,
+                    "IoU": 0.5612086203065986,
+                    "TN": 69983446,
+                    "TP": 5052,
+                    "n_pred": 5187,
+                    "n_ref": 8867
+                },
+                "2": {
+                    "Dice": 0.649440435552867,
+                    "FN": 7726,
+                    "FP": 387,
+                    "IoU": 0.4808676734067059,
+                    "TN": 69976820,
+                    "TP": 7515,
+                    "n_pred": 7902,
+                    "n_ref": 15241
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_005.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_005.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.7094395280235988,
+                    "FN": 3537,
+                    "FP": 9,
+                    "IoU": 0.5497142857142857,
+                    "TN": 58450237,
+                    "TP": 4329,
+                    "n_pred": 4338,
+                    "n_ref": 7866
+                },
+                "2": {
+                    "Dice": 0.8609523809523809,
+                    "FN": 142,
+                    "FP": 77,
+                    "IoU": 0.7558528428093646,
+                    "TN": 58457215,
+                    "TP": 678,
+                    "n_pred": 755,
+                    "n_ref": 820
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_006.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_006.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8645764817656947,
+                    "FN": 81,
+                    "FP": 1772,
+                    "IoU": 0.7614572605561277,
+                    "TN": 33284520,
+                    "TP": 5915,
+                    "n_pred": 7687,
+                    "n_ref": 5996
+                },
+                "2": {
+                    "Dice": 0.7115541755188757,
+                    "FN": 736,
+                    "FP": 1029,
+                    "IoU": 0.5522577371892441,
+                    "TN": 33288346,
+                    "TP": 2177,
+                    "n_pred": 3206,
+                    "n_ref": 2913
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_019.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_019.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.744804580083848,
+                    "FN": 4995,
+                    "FP": 666,
+                    "IoU": 0.5933773883062778,
+                    "TN": 35375518,
+                    "TP": 8261,
+                    "n_pred": 8927,
+                    "n_ref": 13256
+                },
+                "2": {
+                    "Dice": 0.7727617528640616,
+                    "FN": 3817,
+                    "FP": 7866,
+                    "IoU": 0.6296754152402688,
+                    "TN": 35357892,
+                    "TP": 19865,
+                    "n_pred": 27731,
+                    "n_ref": 23682
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_033.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_033.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.6239460370994941,
+                    "FN": 489,
+                    "FP": 403,
+                    "IoU": 0.4534313725490196,
+                    "TN": 33290656,
+                    "TP": 740,
+                    "n_pred": 1143,
+                    "n_ref": 1229
+                },
+                "2": {
+                    "Dice": 0.8241139450149056,
+                    "FN": 661,
+                    "FP": 1463,
+                    "IoU": 0.7008450704225352,
+                    "TN": 33285188,
+                    "TP": 4976,
+                    "n_pred": 6439,
+                    "n_ref": 5637
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_038.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_038.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.6925945657964837,
+                    "FN": 179,
+                    "FP": 398,
+                    "IoU": 0.5297473512632437,
+                    "TN": 33291061,
+                    "TP": 650,
+                    "n_pred": 1048,
+                    "n_ref": 829
+                },
+                "2": {
+                    "Dice": NaN,
+                    "FN": 0,
+                    "FP": 0,
+                    "IoU": NaN,
+                    "TN": 33292288,
+                    "TP": 0,
+                    "n_pred": 0,
+                    "n_ref": 0
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_042.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_042.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.7840670859538784,
+                    "FN": 678,
+                    "FP": 352,
+                    "IoU": 0.6448275862068965,
+                    "TN": 33289388,
+                    "TP": 1870,
+                    "n_pred": 2222,
+                    "n_ref": 2548
+                },
+                "2": {
+                    "Dice": 0.2833871215613954,
+                    "FN": 463,
+                    "FP": 4200,
+                    "IoU": 0.16508504923903314,
+                    "TN": 33286703,
+                    "TP": 922,
+                    "n_pred": 5122,
+                    "n_ref": 1385
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_043.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_043.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.6347305389221557,
+                    "FN": 40,
+                    "FP": 692,
+                    "IoU": 0.4649122807017544,
+                    "TN": 33290920,
+                    "TP": 636,
+                    "n_pred": 1328,
+                    "n_ref": 676
+                },
+                "2": {
+                    "Dice": 0.8764137026716932,
+                    "FN": 373,
+                    "FP": 1135,
+                    "IoU": 0.7800145878920496,
+                    "TN": 33285433,
+                    "TP": 5347,
+                    "n_pred": 6482,
+                    "n_ref": 5720
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_047.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_047.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.6941838649155723,
+                    "FN": 323,
+                    "FP": 166,
+                    "IoU": 0.5316091954022989,
+                    "TN": 87817196,
+                    "TP": 555,
+                    "n_pred": 721,
+                    "n_ref": 878
+                },
+                "2": {
+                    "Dice": 0.0,
+                    "FN": 0,
+                    "FP": 854,
+                    "IoU": 0.0,
+                    "TN": 87817386,
+                    "TP": 0,
+                    "n_pred": 854,
+                    "n_ref": 0
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_052.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_052.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.7697441601779755,
+                    "FN": 92,
+                    "FP": 115,
+                    "IoU": 0.6256781193490054,
+                    "TN": 33291735,
+                    "TP": 346,
+                    "n_pred": 461,
+                    "n_ref": 438
+                },
+                "2": {
+                    "Dice": 0.9187899206850565,
+                    "FN": 641,
+                    "FP": 516,
+                    "IoU": 0.849779278109582,
+                    "TN": 33284586,
+                    "TP": 6545,
+                    "n_pred": 7061,
+                    "n_ref": 7186
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_054.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_054.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.7879305436948477,
+                    "FN": 33,
+                    "FP": 712,
+                    "IoU": 0.6500704556129638,
+                    "TN": 33290159,
+                    "TP": 1384,
+                    "n_pred": 2096,
+                    "n_ref": 1417
+                },
+                "2": {
+                    "Dice": 0.0,
+                    "FN": 0,
+                    "FP": 7319,
+                    "IoU": 0.0,
+                    "TN": 33284969,
+                    "TP": 0,
+                    "n_pred": 7319,
+                    "n_ref": 0
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_061.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_061.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.9420337317831996,
+                    "FN": 264,
+                    "FP": 444,
+                    "IoU": 0.8904194397152143,
+                    "TN": 33285827,
+                    "TP": 5753,
+                    "n_pred": 6197,
+                    "n_ref": 6017
+                },
+                "2": {
+                    "Dice": 0.8357073607278693,
+                    "FN": 563,
+                    "FP": 1640,
+                    "IoU": 0.7177811939533693,
+                    "TN": 33284482,
+                    "TP": 5603,
+                    "n_pred": 7243,
+                    "n_ref": 6166
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_065.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_065.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.628731343283582,
+                    "FN": 95,
+                    "FP": 1099,
+                    "IoU": 0.45850340136054424,
+                    "TN": 81524579,
+                    "TP": 1011,
+                    "n_pred": 2110,
+                    "n_ref": 1106
+                },
+                "2": {
+                    "Dice": 0.8273232011665078,
+                    "FN": 233,
+                    "FP": 2846,
+                    "IoU": 0.7054997608799617,
+                    "TN": 81516329,
+                    "TP": 7376,
+                    "n_pred": 10222,
+                    "n_ref": 7609
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_072.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_072.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.5767045454545454,
+                    "FN": 2,
+                    "FP": 1190,
+                    "IoU": 0.405189620758483,
+                    "TN": 33290284,
+                    "TP": 812,
+                    "n_pred": 2002,
+                    "n_ref": 814
+                },
+                "2": {
+                    "Dice": 0.6553170182136822,
+                    "FN": 4357,
+                    "FP": 1150,
+                    "IoU": 0.4873394153788866,
+                    "TN": 33281546,
+                    "TP": 5235,
+                    "n_pred": 6385,
+                    "n_ref": 9592
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_080.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_080.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.7470376094796497,
+                    "FN": 21,
+                    "FP": 470,
+                    "IoU": 0.5962171052631579,
+                    "TN": 23853888,
+                    "TP": 725,
+                    "n_pred": 1195,
+                    "n_ref": 746
+                },
+                "2": {
+                    "Dice": 0.7455653535800619,
+                    "FN": 2696,
+                    "FP": 4777,
+                    "IoU": 0.5943437194658561,
+                    "TN": 23836682,
+                    "TP": 10949,
+                    "n_pred": 15726,
+                    "n_ref": 13645
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_090.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_090.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.927832512315271,
+                    "FN": 312,
+                    "FP": 860,
+                    "IoU": 0.8653801975648978,
+                    "TN": 33283582,
+                    "TP": 7534,
+                    "n_pred": 8394,
+                    "n_ref": 7846
+                },
+                "2": {
+                    "Dice": 0.8376765176881642,
+                    "FN": 2563,
+                    "FP": 4127,
+                    "IoU": 0.720691382765531,
+                    "TN": 33268336,
+                    "TP": 17262,
+                    "n_pred": 21389,
+                    "n_ref": 19825
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_100.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_100.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8596048759983186,
+                    "FN": 599,
+                    "FP": 69,
+                    "IoU": 0.7537781054183561,
+                    "TN": 31192423,
+                    "TP": 2045,
+                    "n_pred": 2114,
+                    "n_ref": 2644
+                },
+                "2": {
+                    "Dice": 0.8794671448699884,
+                    "FN": 575,
+                    "FP": 366,
+                    "IoU": 0.7848651120256058,
+                    "TN": 31190762,
+                    "TP": 3433,
+                    "n_pred": 3799,
+                    "n_ref": 4008
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_107.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_107.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.47319148936170213,
+                    "FN": 27,
+                    "FP": 592,
+                    "IoU": 0.30992196209587514,
+                    "TN": 54525055,
+                    "TP": 278,
+                    "n_pred": 870,
+                    "n_ref": 305
+                },
+                "2": {
+                    "Dice": 0.8272896660455783,
+                    "FN": 186,
+                    "FP": 1019,
+                    "IoU": 0.7054509899780005,
+                    "TN": 54521861,
+                    "TP": 2886,
+                    "n_pred": 3905,
+                    "n_ref": 3072
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_108.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_108.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8870723074330018,
+                    "FN": 770,
+                    "FP": 570,
+                    "IoU": 0.7970619415417235,
+                    "TN": 87811637,
+                    "TP": 5263,
+                    "n_pred": 5833,
+                    "n_ref": 6033
+                },
+                "2": {
+                    "Dice": 0.0,
+                    "FN": 0,
+                    "FP": 1504,
+                    "IoU": 0.0,
+                    "TN": 87816736,
+                    "TP": 0,
+                    "n_pred": 1504,
+                    "n_ref": 0
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_109.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_109.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.6369257950530035,
+                    "FN": 817,
+                    "FP": 5,
+                    "IoU": 0.4672715489306546,
+                    "TN": 51116537,
+                    "TP": 721,
+                    "n_pred": 726,
+                    "n_ref": 1538
+                },
+                "2": {
+                    "Dice": 0.5086136177194421,
+                    "FN": 1648,
+                    "FP": 1347,
+                    "IoU": 0.341034103410341,
+                    "TN": 51113535,
+                    "TP": 1550,
+                    "n_pred": 2897,
+                    "n_ref": 3198
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_111.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_111.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.7634069400630915,
+                    "FN": 146,
+                    "FP": 304,
+                    "IoU": 0.6173469387755102,
+                    "TN": 31193960,
+                    "TP": 726,
+                    "n_pred": 1030,
+                    "n_ref": 872
+                },
+                "2": {
+                    "Dice": 0.6333874458874459,
+                    "FN": 448,
+                    "FP": 2262,
+                    "IoU": 0.46347257968719063,
+                    "TN": 31190085,
+                    "TP": 2341,
+                    "n_pred": 4603,
+                    "n_ref": 2789
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_112.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_112.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.4031373743527262,
+                    "FN": 7833,
+                    "FP": 5,
+                    "IoU": 0.25245588936576063,
+                    "TN": 33281803,
+                    "TP": 2647,
+                    "n_pred": 2652,
+                    "n_ref": 10480
+                },
+                "2": {
+                    "Dice": 0.6190476190476191,
+                    "FN": 2845,
+                    "FP": 115,
+                    "IoU": 0.4482758620689655,
+                    "TN": 33286923,
+                    "TP": 2405,
+                    "n_pred": 2520,
+                    "n_ref": 5250
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_126.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_126.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.6082949308755761,
+                    "FN": 913,
+                    "FP": 192,
+                    "IoU": 0.4370860927152318,
+                    "TN": 33290325,
+                    "TP": 858,
+                    "n_pred": 1050,
+                    "n_ref": 1771
+                },
+                "2": {
+                    "Dice": 0.8780645161290322,
+                    "FN": 473,
+                    "FP": 661,
+                    "IoU": 0.7826336975273146,
+                    "TN": 33287071,
+                    "TP": 4083,
+                    "n_pred": 4744,
+                    "n_ref": 4556
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_135.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_135.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.905748284329157,
+                    "FN": 985,
+                    "FP": 512,
+                    "IoU": 0.8277330264672037,
+                    "TN": 22797838,
+                    "TP": 7193,
+                    "n_pred": 7705,
+                    "n_ref": 8178
+                },
+                "2": {
+                    "Dice": 0.8251820304986949,
+                    "FN": 4336,
+                    "FP": 754,
+                    "IoU": 0.7023913933228089,
+                    "TN": 22789425,
+                    "TP": 12013,
+                    "n_pred": 12767,
+                    "n_ref": 16349
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_145.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_145.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.7301319853973602,
+                    "FN": 2710,
+                    "FP": 173,
+                    "IoU": 0.5749668288367978,
+                    "TN": 22799745,
+                    "TP": 3900,
+                    "n_pred": 4073,
+                    "n_ref": 6610
+                },
+                "2": {
+                    "Dice": 0.7757143396368852,
+                    "FN": 11096,
+                    "FP": 788,
+                    "IoU": 0.63360567288423,
+                    "TN": 22774093,
+                    "TP": 20551,
+                    "n_pred": 21339,
+                    "n_ref": 31647
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_146.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_146.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.35831180017226527,
+                    "FN": 0,
+                    "FP": 2235,
+                    "IoU": 0.21825813221406087,
+                    "TN": 33289429,
+                    "TP": 624,
+                    "n_pred": 2859,
+                    "n_ref": 624
+                },
+                "2": {
+                    "Dice": 0.810512024825446,
+                    "FN": 5344,
+                    "FP": 518,
+                    "IoU": 0.6813957280286972,
+                    "TN": 33273889,
+                    "TP": 12537,
+                    "n_pred": 13055,
+                    "n_ref": 17881
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_150.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_150.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8396572827417381,
+                    "FN": 298,
+                    "FP": 750,
+                    "IoU": 0.7236286919831224,
+                    "TN": 33288496,
+                    "TP": 2744,
+                    "n_pred": 3494,
+                    "n_ref": 3042
+                },
+                "2": {
+                    "Dice": 0.7614457831325301,
+                    "FN": 113,
+                    "FP": 184,
+                    "IoU": 0.6147859922178989,
+                    "TN": 33291517,
+                    "TP": 474,
+                    "n_pred": 658,
+                    "n_ref": 587
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_155.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_155.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.850738255033557,
+                    "FN": 3203,
+                    "FP": 133,
+                    "IoU": 0.7402476056996029,
+                    "TN": 33279445,
+                    "TP": 9507,
+                    "n_pred": 9640,
+                    "n_ref": 12710
+                },
+                "2": {
+                    "Dice": 0.49984202211690365,
+                    "FN": 1374,
+                    "FP": 209,
+                    "IoU": 0.33319292333614153,
+                    "TN": 33289914,
+                    "TP": 791,
+                    "n_pred": 1000,
+                    "n_ref": 2165
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_156.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_156.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.4661480841256122,
+                    "FN": 1710,
+                    "FP": 143,
+                    "IoU": 0.30390683696468823,
+                    "TN": 59504026,
+                    "TP": 809,
+                    "n_pred": 952,
+                    "n_ref": 2519
+                },
+                "2": {
+                    "Dice": 0.8280425817588952,
+                    "FN": 1528,
+                    "FP": 265,
+                    "IoU": 0.7065466448445172,
+                    "TN": 59500578,
+                    "TP": 4317,
+                    "n_pred": 4582,
+                    "n_ref": 5845
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_164.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_164.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.7783033743298644,
+                    "FN": 3869,
+                    "FP": 349,
+                    "IoU": 0.6370676303562209,
+                    "TN": 33280666,
+                    "TP": 7404,
+                    "n_pred": 7753,
+                    "n_ref": 11273
+                },
+                "2": {
+                    "Dice": 0.8243735052511179,
+                    "FN": 3018,
+                    "FP": 360,
+                    "IoU": 0.7012205908367238,
+                    "TN": 33280982,
+                    "TP": 7928,
+                    "n_pred": 8288,
+                    "n_ref": 10946
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_165.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_165.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8021248339973439,
+                    "FN": 35,
+                    "FP": 263,
+                    "IoU": 0.6696230598669624,
+                    "TN": 64748666,
+                    "TP": 604,
+                    "n_pred": 867,
+                    "n_ref": 639
+                },
+                "2": {
+                    "Dice": 0.8537679699661204,
+                    "FN": 1530,
+                    "FP": 67,
+                    "IoU": 0.7448474197156095,
+                    "TN": 64743309,
+                    "TP": 4662,
+                    "n_pred": 4729,
+                    "n_ref": 6192
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_178.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_178.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.623030303030303,
+                    "FN": 0,
+                    "FP": 622,
+                    "IoU": 0.4524647887323944,
+                    "TN": 33291152,
+                    "TP": 514,
+                    "n_pred": 1136,
+                    "n_ref": 514
+                },
+                "2": {
+                    "Dice": 0.8022274305249617,
+                    "FN": 6979,
+                    "FP": 4244,
+                    "IoU": 0.6697660732676181,
+                    "TN": 33258303,
+                    "TP": 22762,
+                    "n_pred": 27006,
+                    "n_ref": 29741
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_183.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_183.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.9303190365518699,
+                    "FN": 734,
+                    "FP": 915,
+                    "IoU": 0.8697163624871612,
+                    "TN": 81514127,
+                    "TP": 11008,
+                    "n_pred": 11923,
+                    "n_ref": 11742
+                },
+                "2": {
+                    "Dice": 0.905296825025353,
+                    "FN": 1363,
+                    "FP": 1065,
+                    "IoU": 0.8269792631653958,
+                    "TN": 81512751,
+                    "TP": 11605,
+                    "n_pred": 12670,
+                    "n_ref": 12968
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_190.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_190.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.7731842087743825,
+                    "FN": 2835,
+                    "FP": 572,
+                    "IoU": 0.6302365964836119,
+                    "TN": 33283074,
+                    "TP": 5807,
+                    "n_pred": 6379,
+                    "n_ref": 8642
+                },
+                "2": {
+                    "Dice": 0.7219512195121951,
+                    "FN": 693,
+                    "FP": 105,
+                    "IoU": 0.5648854961832062,
+                    "TN": 33290454,
+                    "TP": 1036,
+                    "n_pred": 1141,
+                    "n_ref": 1729
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_193.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_193.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8479049818541735,
+                    "FN": 331,
+                    "FP": 130,
+                    "IoU": 0.7359679266895762,
+                    "TN": 28047662,
+                    "TP": 1285,
+                    "n_pred": 1415,
+                    "n_ref": 1616
+                },
+                "2": {
+                    "Dice": 0.15128205128205127,
+                    "FN": 455,
+                    "FP": 207,
+                    "IoU": 0.08183079056865465,
+                    "TN": 28048687,
+                    "TP": 59,
+                    "n_pred": 266,
+                    "n_ref": 514
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_215.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_215.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8448104500922902,
+                    "FN": 371,
+                    "FP": 722,
+                    "IoU": 0.7313176007866273,
+                    "TN": 30142492,
+                    "TP": 2975,
+                    "n_pred": 3697,
+                    "n_ref": 3346
+                },
+                "2": {
+                    "Dice": 0.0,
+                    "FN": 0,
+                    "FP": 58,
+                    "IoU": 0.0,
+                    "TN": 30146502,
+                    "TP": 0,
+                    "n_pred": 58,
+                    "n_ref": 0
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_216.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_216.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8420921853646416,
+                    "FN": 672,
+                    "FP": 599,
+                    "IoU": 0.7272532188841202,
+                    "TN": 33287628,
+                    "TP": 3389,
+                    "n_pred": 3988,
+                    "n_ref": 4061
+                },
+                "2": {
+                    "Dice": 0.0,
+                    "FN": 0,
+                    "FP": 1091,
+                    "IoU": 0.0,
+                    "TN": 33291197,
+                    "TP": 0,
+                    "n_pred": 1091,
+                    "n_ref": 0
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_217.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_217.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.7452948557089084,
+                    "FN": 1424,
+                    "FP": 403,
+                    "IoU": 0.594,
+                    "TN": 69987948,
+                    "TP": 2673,
+                    "n_pred": 3076,
+                    "n_ref": 4097
+                },
+                "2": {
+                    "Dice": 0.776,
+                    "FN": 1346,
+                    "FP": 334,
+                    "IoU": 0.6339869281045751,
+                    "TN": 69987858,
+                    "TP": 2910,
+                    "n_pred": 3244,
+                    "n_ref": 4256
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_221.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_221.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.09323741007194244,
+                    "FN": 7272,
+                    "FP": 2181,
+                    "IoU": 0.04889827950498038,
+                    "TN": 78371117,
+                    "TP": 486,
+                    "n_pred": 2667,
+                    "n_ref": 7758
+                },
+                "2": {
+                    "Dice": 0.874385549304116,
+                    "FN": 884,
+                    "FP": 1237,
+                    "IoU": 0.7768073240029464,
+                    "TN": 78371553,
+                    "TP": 7382,
+                    "n_pred": 8619,
+                    "n_ref": 8266
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_222.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_222.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.4744034264735876,
+                    "FN": 2546,
+                    "FP": 31,
+                    "IoU": 0.3109625668449198,
+                    "TN": 33288548,
+                    "TP": 1163,
+                    "n_pred": 1194,
+                    "n_ref": 3709
+                },
+                "2": {
+                    "Dice": 0.7846808510638298,
+                    "FN": 106,
+                    "FP": 1412,
+                    "IoU": 0.6456582633053222,
+                    "TN": 33288004,
+                    "TP": 2766,
+                    "n_pred": 4178,
+                    "n_ref": 2872
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_224.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_224.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.7733755942947702,
+                    "FN": 915,
+                    "FP": 515,
+                    "IoU": 0.6304909560723514,
+                    "TN": 81522914,
+                    "TP": 2440,
+                    "n_pred": 2955,
+                    "n_ref": 3355
+                },
+                "2": {
+                    "Dice": 0.0,
+                    "FN": 0,
+                    "FP": 1729,
+                    "IoU": 0.0,
+                    "TN": 81525055,
+                    "TP": 0,
+                    "n_pred": 1729,
+                    "n_ref": 0
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_227.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_227.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.7781427291728874,
+                    "FN": 623,
+                    "FP": 120,
+                    "IoU": 0.636852394916911,
+                    "TN": 75233282,
+                    "TP": 1303,
+                    "n_pred": 1423,
+                    "n_ref": 1926
+                },
+                "2": {
+                    "Dice": 0.8591756624141315,
+                    "FN": 294,
+                    "FP": 854,
+                    "IoU": 0.7531182795698925,
+                    "TN": 75230678,
+                    "TP": 3502,
+                    "n_pred": 4356,
+                    "n_ref": 3796
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_228.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_228.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.7360233349538162,
+                    "FN": 403,
+                    "FP": 140,
+                    "IoU": 0.5823076923076923,
+                    "TN": 53738220,
+                    "TP": 757,
+                    "n_pred": 897,
+                    "n_ref": 1160
+                },
+                "2": {
+                    "Dice": 0.6199830811166464,
+                    "FN": 284,
+                    "FP": 3759,
+                    "IoU": 0.4492575943331971,
+                    "TN": 53732179,
+                    "TP": 3298,
+                    "n_pred": 7057,
+                    "n_ref": 3582
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_230.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_230.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8070074669730041,
+                    "FN": 425,
+                    "FP": 247,
+                    "IoU": 0.6764564275397208,
+                    "TN": 69990371,
+                    "TP": 1405,
+                    "n_pred": 1652,
+                    "n_ref": 1830
+                },
+                "2": {
+                    "Dice": 0.7666733426797516,
+                    "FN": 71,
+                    "FP": 1094,
+                    "IoU": 0.6216303994803508,
+                    "TN": 69989369,
+                    "TP": 1914,
+                    "n_pred": 3008,
+                    "n_ref": 1985
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_239.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_239.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.86368,
+                    "FN": 149,
+                    "FP": 703,
+                    "IoU": 0.7600675865953253,
+                    "TN": 33288737,
+                    "TP": 2699,
+                    "n_pred": 3402,
+                    "n_ref": 2848
+                },
+                "2": {
+                    "Dice": 0.827189333941086,
+                    "FN": 617,
+                    "FP": 2416,
+                    "IoU": 0.7053050913330743,
+                    "TN": 33281996,
+                    "TP": 7259,
+                    "n_pred": 9675,
+                    "n_ref": 7876
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_243.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_243.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.6503234593122234,
+                    "FN": 46,
+                    "FP": 981,
+                    "IoU": 0.4818365287588295,
+                    "TN": 33290306,
+                    "TP": 955,
+                    "n_pred": 1936,
+                    "n_ref": 1001
+                },
+                "2": {
+                    "Dice": 0.0,
+                    "FN": 0,
+                    "FP": 383,
+                    "IoU": 0.0,
+                    "TN": 33291905,
+                    "TP": 0,
+                    "n_pred": 383,
+                    "n_ref": 0
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_245.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_245.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.4141039767604928,
+                    "FN": 190,
+                    "FP": 5659,
+                    "IoU": 0.2611167256189995,
+                    "TN": 81518868,
+                    "TP": 2067,
+                    "n_pred": 7726,
+                    "n_ref": 2257
+                },
+                "2": {
+                    "Dice": 0.651315659994883,
+                    "FN": 1010,
+                    "FP": 16707,
+                    "IoU": 0.4829266869017044,
+                    "TN": 81492520,
+                    "TP": 16547,
+                    "n_pred": 33254,
+                    "n_ref": 17557
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_257.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_257.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.25277161862527714,
+                    "FN": 14,
+                    "FP": 1334,
+                    "IoU": 0.1446700507614213,
+                    "TN": 33290712,
+                    "TP": 228,
+                    "n_pred": 1562,
+                    "n_ref": 242
+                },
+                "2": {
+                    "Dice": 0.6721311475409836,
+                    "FN": 110,
+                    "FP": 10,
+                    "IoU": 0.5061728395061729,
+                    "TN": 33292045,
+                    "TP": 123,
+                    "n_pred": 133,
+                    "n_ref": 233
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_262.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_262.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.813126709206928,
+                    "FN": 14,
+                    "FP": 191,
+                    "IoU": 0.685099846390169,
+                    "TN": 33291637,
+                    "TP": 446,
+                    "n_pred": 637,
+                    "n_ref": 460
+                },
+                "2": {
+                    "Dice": 0.8754421424962102,
+                    "FN": 136,
+                    "FP": 850,
+                    "IoU": 0.7784767467984722,
+                    "TN": 33287837,
+                    "TP": 3465,
+                    "n_pred": 4315,
+                    "n_ref": 3601
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_267.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_267.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.7830857142857143,
+                    "FN": 906,
+                    "FP": 43,
+                    "IoU": 0.6435011269722013,
+                    "TN": 33289626,
+                    "TP": 1713,
+                    "n_pred": 1756,
+                    "n_ref": 2619
+                },
+                "2": {
+                    "Dice": 0.8839525588100386,
+                    "FN": 222,
+                    "FP": 1549,
+                    "IoU": 0.7920385157350869,
+                    "TN": 33283772,
+                    "TP": 6745,
+                    "n_pred": 8294,
+                    "n_ref": 6967
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_275.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_275.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.5473582474226805,
+                    "FN": 257,
+                    "FP": 2553,
+                    "IoU": 0.37680195165225105,
+                    "TN": 33287779,
+                    "TP": 1699,
+                    "n_pred": 4252,
+                    "n_ref": 1956
+                },
+                "2": {
+                    "Dice": 0.0,
+                    "FN": 0,
+                    "FP": 5148,
+                    "IoU": 0.0,
+                    "TN": 33287140,
+                    "TP": 0,
+                    "n_pred": 5148,
+                    "n_ref": 0
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_277.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_277.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.7728557964184731,
+                    "FN": 18,
+                    "FP": 223,
+                    "IoU": 0.6298003072196621,
+                    "TN": 33291637,
+                    "TP": 410,
+                    "n_pred": 633,
+                    "n_ref": 428
+                },
+                "2": {
+                    "Dice": 0.6704012112036336,
+                    "FN": 50,
+                    "FP": 2127,
+                    "IoU": 0.5042131632885447,
+                    "TN": 33287897,
+                    "TP": 2214,
+                    "n_pred": 4341,
+                    "n_ref": 2264
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_279.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_279.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8115745143322918,
+                    "FN": 85,
+                    "FP": 2689,
+                    "IoU": 0.6828989483310471,
+                    "TN": 33283540,
+                    "TP": 5974,
+                    "n_pred": 8663,
+                    "n_ref": 6059
+                },
+                "2": {
+                    "Dice": NaN,
+                    "FN": 0,
+                    "FP": 0,
+                    "IoU": NaN,
+                    "TN": 33292288,
+                    "TP": 0,
+                    "n_pred": 0,
+                    "n_ref": 0
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_281.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_281.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.42479108635097496,
+                    "FN": 38,
+                    "FP": 4092,
+                    "IoU": 0.2696728558797524,
+                    "TN": 59501033,
+                    "TP": 1525,
+                    "n_pred": 5617,
+                    "n_ref": 1563
+                },
+                "2": {
+                    "Dice": 0.7090747330960854,
+                    "FN": 708,
+                    "FP": 600,
+                    "IoU": 0.549276361130255,
+                    "TN": 59503786,
+                    "TP": 1594,
+                    "n_pred": 2194,
+                    "n_ref": 2302
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_289.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_289.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.7725321888412017,
+                    "FN": 104,
+                    "FP": 479,
+                    "IoU": 0.6293706293706294,
+                    "TN": 81525211,
+                    "TP": 990,
+                    "n_pred": 1469,
+                    "n_ref": 1094
+                },
+                "2": {
+                    "Dice": 0.7071629213483146,
+                    "FN": 997,
+                    "FP": 2339,
+                    "IoU": 0.5469853340575774,
+                    "TN": 81519420,
+                    "TP": 4028,
+                    "n_pred": 6367,
+                    "n_ref": 5025
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_290.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_290.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8887793118562349,
+                    "FN": 118,
+                    "FP": 1912,
+                    "IoU": 0.7998225027117641,
+                    "TN": 33282147,
+                    "TP": 8111,
+                    "n_pred": 10023,
+                    "n_ref": 8229
+                },
+                "2": {
+                    "Dice": 0.0,
+                    "FN": 0,
+                    "FP": 171,
+                    "IoU": 0.0,
+                    "TN": 33292117,
+                    "TP": 0,
+                    "n_pred": 171,
+                    "n_ref": 0
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_293.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_293.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.9156318904491122,
+                    "FN": 198,
+                    "FP": 529,
+                    "IoU": 0.8443921232876712,
+                    "TN": 33287616,
+                    "TP": 3945,
+                    "n_pred": 4474,
+                    "n_ref": 4143
+                },
+                "2": {
+                    "Dice": 0.0,
+                    "FN": 0,
+                    "FP": 11,
+                    "IoU": 0.0,
+                    "TN": 33292277,
+                    "TP": 0,
+                    "n_pred": 11,
+                    "n_ref": 0
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_294.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_294.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8652698412698413,
+                    "FN": 338,
+                    "FP": 723,
+                    "IoU": 0.7625335720680394,
+                    "TN": 87813772,
+                    "TP": 3407,
+                    "n_pred": 4130,
+                    "n_ref": 3745
+                },
+                "2": {
+                    "Dice": 0.8071202145818093,
+                    "FN": 518,
+                    "FP": 1064,
+                    "IoU": 0.6766148814390842,
+                    "TN": 87813348,
+                    "TP": 3310,
+                    "n_pred": 4374,
+                    "n_ref": 3828
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_302.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_302.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.7830739299610895,
+                    "FN": 1052,
+                    "FP": 1178,
+                    "IoU": 0.6434852118305355,
+                    "TN": 33286033,
+                    "TP": 4025,
+                    "n_pred": 5203,
+                    "n_ref": 5077
+                },
+                "2": {
+                    "Dice": 0.7625338214228872,
+                    "FN": 1986,
+                    "FP": 998,
+                    "IoU": 0.6162057877813505,
+                    "TN": 33284513,
+                    "TP": 4791,
+                    "n_pred": 5789,
+                    "n_ref": 6777
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_321.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_321.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8607802874743327,
+                    "FN": 1754,
+                    "FP": 280,
+                    "IoU": 0.7555875991348233,
+                    "TN": 33283966,
+                    "TP": 6288,
+                    "n_pred": 6568,
+                    "n_ref": 8042
+                },
+                "2": {
+                    "Dice": 0.720576773187841,
+                    "FN": 893,
+                    "FP": 541,
+                    "IoU": 0.5632043862321048,
+                    "TN": 33289005,
+                    "TP": 1849,
+                    "n_pred": 2390,
+                    "n_ref": 2742
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_324.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_324.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.869740099009901,
+                    "FN": 37,
+                    "FP": 805,
+                    "IoU": 0.7695045168354777,
+                    "TN": 33288635,
+                    "TP": 2811,
+                    "n_pred": 3616,
+                    "n_ref": 2848
+                },
+                "2": {
+                    "Dice": 0.8912974179152056,
+                    "FN": 824,
+                    "FP": 199,
+                    "IoU": 0.8039102932719954,
+                    "TN": 33287071,
+                    "TP": 4194,
+                    "n_pred": 4393,
+                    "n_ref": 5018
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_328.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_328.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8481335497333643,
+                    "FN": 474,
+                    "FP": 181,
+                    "IoU": 0.7363123993558777,
+                    "TN": 22804044,
+                    "TP": 1829,
+                    "n_pred": 2010,
+                    "n_ref": 2303
+                },
+                "2": {
+                    "Dice": 0.796776050662061,
+                    "FN": 315,
+                    "FP": 38,
+                    "IoU": 0.662200956937799,
+                    "TN": 22805483,
+                    "TP": 692,
+                    "n_pred": 730,
+                    "n_ref": 1007
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_333.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_333.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.5730786317192359,
+                    "FN": 363,
+                    "FP": 598,
+                    "IoU": 0.4016189290161893,
+                    "TN": 81525178,
+                    "TP": 645,
+                    "n_pred": 1243,
+                    "n_ref": 1008
+                },
+                "2": {
+                    "Dice": 0.8207568046027882,
+                    "FN": 5261,
+                    "FP": 2839,
+                    "IoU": 0.6960030024394821,
+                    "TN": 81500139,
+                    "TP": 18545,
+                    "n_pred": 21384,
+                    "n_ref": 23806
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_339.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_339.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.6644859813084112,
+                    "FN": 1178,
+                    "FP": 258,
+                    "IoU": 0.49755073477956613,
+                    "TN": 33289430,
+                    "TP": 1422,
+                    "n_pred": 1680,
+                    "n_ref": 2600
+                },
+                "2": {
+                    "Dice": 0.8554621848739495,
+                    "FN": 1940,
+                    "FP": 296,
+                    "IoU": 0.7474302496328928,
+                    "TN": 33283435,
+                    "TP": 6617,
+                    "n_pred": 6913,
+                    "n_ref": 8557
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_341.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_341.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8364146969342382,
+                    "FN": 197,
+                    "FP": 502,
+                    "IoU": 0.7188254223652454,
+                    "TN": 33289802,
+                    "TP": 1787,
+                    "n_pred": 2289,
+                    "n_ref": 1984
+                },
+                "2": {
+                    "Dice": 0.7405927405927406,
+                    "FN": 1967,
+                    "FP": 370,
+                    "IoU": 0.588048651507139,
+                    "TN": 33286615,
+                    "TP": 3336,
+                    "n_pred": 3706,
+                    "n_ref": 5303
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_345.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_345.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.7400881057268722,
+                    "FN": 70,
+                    "FP": 284,
+                    "IoU": 0.5874125874125874,
+                    "TN": 78380198,
+                    "TP": 504,
+                    "n_pred": 788,
+                    "n_ref": 574
+                },
+                "2": {
+                    "Dice": 0.5944638538027412,
+                    "FN": 1296,
+                    "FP": 213,
+                    "IoU": 0.42294455066921605,
+                    "TN": 78378441,
+                    "TP": 1106,
+                    "n_pred": 1319,
+                    "n_ref": 2402
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_346.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_346.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.7939333992746456,
+                    "FN": 1019,
+                    "FP": 231,
+                    "IoU": 0.6582832148715145,
+                    "TN": 33288630,
+                    "TP": 2408,
+                    "n_pred": 2639,
+                    "n_ref": 3427
+                },
+                "2": {
+                    "Dice": 0.7543559959002392,
+                    "FN": 1345,
+                    "FP": 93,
+                    "IoU": 0.605595172792101,
+                    "TN": 33288642,
+                    "TP": 2208,
+                    "n_pred": 2301,
+                    "n_ref": 3553
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_348.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_348.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.7159590043923866,
+                    "FN": 242,
+                    "FP": 146,
+                    "IoU": 0.5575826681870011,
+                    "TN": 75234451,
+                    "TP": 489,
+                    "n_pred": 635,
+                    "n_ref": 731
+                },
+                "2": {
+                    "Dice": 0.0,
+                    "FN": 1152,
+                    "FP": 94,
+                    "IoU": 0.0,
+                    "TN": 75234082,
+                    "TP": 0,
+                    "n_pred": 94,
+                    "n_ref": 1152
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_351.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_351.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.7371987951807228,
+                    "FN": 62,
+                    "FP": 636,
+                    "IoU": 0.5837805605247466,
+                    "TN": 22804851,
+                    "TP": 979,
+                    "n_pred": 1615,
+                    "n_ref": 1041
+                },
+                "2": {
+                    "Dice": 0.8699958442997645,
+                    "FN": 3103,
+                    "FP": 651,
+                    "IoU": 0.7699049954030034,
+                    "TN": 22790213,
+                    "TP": 12561,
+                    "n_pred": 13212,
+                    "n_ref": 15664
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_362.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_362.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.9069949538889855,
+                    "FN": 1858,
+                    "FP": 280,
+                    "IoU": 0.8298177186977632,
+                    "TN": 53726957,
+                    "TP": 10425,
+                    "n_pred": 10705,
+                    "n_ref": 12283
+                },
+                "2": {
+                    "Dice": 0.8135469774217043,
+                    "FN": 1770,
+                    "FP": 278,
+                    "IoU": 0.6856967464702272,
+                    "TN": 53733004,
+                    "TP": 4468,
+                    "n_pred": 4746,
+                    "n_ref": 6238
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_384.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_384.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.7659709044908286,
+                    "FN": 20,
+                    "FP": 720,
+                    "IoU": 0.6207073295745772,
+                    "TN": 81524833,
+                    "TP": 1211,
+                    "n_pred": 1931,
+                    "n_ref": 1231
+                },
+                "2": {
+                    "Dice": 0.0,
+                    "FN": 0,
+                    "FP": 183,
+                    "IoU": 0.0,
+                    "TN": 81526601,
+                    "TP": 0,
+                    "n_pred": 183,
+                    "n_ref": 0
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_385.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_385.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8754389325161208,
+                    "FN": 1781,
+                    "FP": 170,
+                    "IoU": 0.7784716702622914,
+                    "TN": 33283481,
+                    "TP": 6856,
+                    "n_pred": 7026,
+                    "n_ref": 8637
+                },
+                "2": {
+                    "Dice": 0.8264462809917356,
+                    "FN": 143,
+                    "FP": 67,
+                    "IoU": 0.704225352112676,
+                    "TN": 33291578,
+                    "TP": 500,
+                    "n_pred": 567,
+                    "n_ref": 643
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_387.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_387.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8873817034700315,
+                    "FN": 247,
+                    "FP": 1181,
+                    "IoU": 0.7975616671392118,
+                    "TN": 81519730,
+                    "TP": 5626,
+                    "n_pred": 6807,
+                    "n_ref": 5873
+                },
+                "2": {
+                    "Dice": 0.8424354243542436,
+                    "FN": 412,
+                    "FP": 442,
+                    "IoU": 0.7277653809372011,
+                    "TN": 81523647,
+                    "TP": 2283,
+                    "n_pred": 2725,
+                    "n_ref": 2695
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_393.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_393.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.5420340975896532,
+                    "FN": 555,
+                    "FP": 1782,
+                    "IoU": 0.3717741935483871,
+                    "TN": 33288568,
+                    "TP": 1383,
+                    "n_pred": 3165,
+                    "n_ref": 1938
+                },
+                "2": {
+                    "Dice": 0.8697826734147067,
+                    "FN": 1582,
+                    "FP": 605,
+                    "IoU": 0.7695711726899168,
+                    "TN": 33282797,
+                    "TP": 7304,
+                    "n_pred": 7909,
+                    "n_ref": 8886
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_396.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_396.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.6630155713380681,
+                    "FN": 40419,
+                    "FP": 7,
+                    "IoU": 0.49590373464679843,
+                    "TN": 45532861,
+                    "TP": 39769,
+                    "n_pred": 39776,
+                    "n_ref": 80188
+                },
+                "2": {
+                    "Dice": 0.646316773088304,
+                    "FN": 1042,
+                    "FP": 3500,
+                    "IoU": 0.4774505292222734,
+                    "TN": 45604364,
+                    "TP": 4150,
+                    "n_pred": 7650,
+                    "n_ref": 5192
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_406.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_406.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.7515208235844641,
+                    "FN": 438,
+                    "FP": 93,
+                    "IoU": 0.6019490254872564,
+                    "TN": 31193802,
+                    "TP": 803,
+                    "n_pred": 896,
+                    "n_ref": 1241
+                },
+                "2": {
+                    "Dice": 0.8476017000607164,
+                    "FN": 295,
+                    "FP": 960,
+                    "IoU": 0.7355110642781876,
+                    "TN": 31190391,
+                    "TP": 3490,
+                    "n_pred": 4450,
+                    "n_ref": 3785
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_414.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_414.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.6564948453608247,
+                    "FN": 1660,
+                    "FP": 6,
+                    "IoU": 0.4886433394720687,
+                    "TN": 98038598,
+                    "TP": 1592,
+                    "n_pred": 1598,
+                    "n_ref": 3252
+                },
+                "2": {
+                    "Dice": 0.7555782878332588,
+                    "FN": 196,
+                    "FP": 3627,
+                    "IoU": 0.6071722153719687,
+                    "TN": 98032124,
+                    "TP": 5909,
+                    "n_pred": 9536,
+                    "n_ref": 6105
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_418.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_418.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.5863760217983651,
+                    "FN": 70,
+                    "FP": 689,
+                    "IoU": 0.41480339244410175,
+                    "TN": 31193839,
+                    "TP": 538,
+                    "n_pred": 1227,
+                    "n_ref": 608
+                },
+                "2": {
+                    "Dice": 0.7121779343756882,
+                    "FN": 593,
+                    "FP": 2021,
+                    "IoU": 0.5530095759233926,
+                    "TN": 31189288,
+                    "TP": 3234,
+                    "n_pred": 5255,
+                    "n_ref": 3827
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_425.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_425.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.7652525252525253,
+                    "FN": 1142,
+                    "FP": 20,
+                    "IoU": 0.6197643979057592,
+                    "TN": 35124240,
+                    "TP": 1894,
+                    "n_pred": 1914,
+                    "n_ref": 3036
+                },
+                "2": {
+                    "Dice": 0.71648,
+                    "FN": 1716,
+                    "FP": 56,
+                    "IoU": 0.5582149090002493,
+                    "TN": 35123285,
+                    "TP": 2239,
+                    "n_pred": 2295,
+                    "n_ref": 3955
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_426.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_426.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.7960339943342776,
+                    "FN": 194,
+                    "FP": 94,
+                    "IoU": 0.6611764705882353,
+                    "TN": 53476526,
+                    "TP": 562,
+                    "n_pred": 656,
+                    "n_ref": 756
+                },
+                "2": {
+                    "Dice": 0.8411010459060873,
+                    "FN": 1191,
+                    "FP": 2440,
+                    "IoU": 0.725775998791632,
+                    "TN": 53464135,
+                    "TP": 9610,
+                    "n_pred": 12050,
+                    "n_ref": 10801
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_427.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_427.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8399564507348939,
+                    "FN": 500,
+                    "FP": 88,
+                    "IoU": 0.7240732050680432,
+                    "TN": 35125165,
+                    "TP": 1543,
+                    "n_pred": 1631,
+                    "n_ref": 2043
+                },
+                "2": {
+                    "Dice": 0.8951208390332878,
+                    "FN": 152,
+                    "FP": 308,
+                    "IoU": 0.810152703260421,
+                    "TN": 35124873,
+                    "TP": 1963,
+                    "n_pred": 2271,
+                    "n_ref": 2115
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_434.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_434.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.5320734145011812,
+                    "FN": 10149,
+                    "FP": 151,
+                    "IoU": 0.3624659569200297,
+                    "TN": 45596900,
+                    "TP": 5856,
+                    "n_pred": 6007,
+                    "n_ref": 16005
+                },
+                "2": {
+                    "Dice": 0.8922475570032573,
+                    "FN": 655,
+                    "FP": 1826,
+                    "IoU": 0.8054575394024935,
+                    "TN": 45600303,
+                    "TP": 10272,
+                    "n_pred": 12098,
+                    "n_ref": 10927
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/MDA_435.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/MDA_435.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.7596658711217184,
+                    "FN": 1862,
+                    "FP": 152,
+                    "IoU": 0.6124687319607466,
+                    "TN": 82045875,
+                    "TP": 3183,
+                    "n_pred": 3335,
+                    "n_ref": 5045
+                },
+                "2": {
+                    "Dice": 0.7772881355932203,
+                    "FN": 1224,
+                    "FP": 1404,
+                    "IoU": 0.635708344884946,
+                    "TN": 82043858,
+                    "TP": 4586,
+                    "n_pred": 5990,
+                    "n_ref": 5810
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/USZ_002.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/USZ_002.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.44073951799273686,
+                    "FN": 3104,
+                    "FP": 284,
+                    "IoU": 0.2826593266991319,
+                    "TN": 92007821,
+                    "TP": 1335,
+                    "n_pred": 1619,
+                    "n_ref": 4439
+                },
+                "2": {
+                    "Dice": NaN,
+                    "FN": 0,
+                    "FP": 0,
+                    "IoU": NaN,
+                    "TN": 92012544,
+                    "TP": 0,
+                    "n_pred": 0,
+                    "n_ref": 0
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/USZ_003.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/USZ_003.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.8534601599117728,
+                    "FN": 1437,
+                    "FP": 689,
+                    "IoU": 0.7443789828063003,
+                    "TN": 92004227,
+                    "TP": 6191,
+                    "n_pred": 6880,
+                    "n_ref": 7628
+                },
+                "2": {
+                    "Dice": 0.6865917192212777,
+                    "FN": 647,
+                    "FP": 496,
+                    "IoU": 0.5227557411273487,
+                    "TN": 92010149,
+                    "TP": 1252,
+                    "n_pred": 1748,
+                    "n_ref": 1899
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/USZ_007.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/USZ_007.nii.gz"
+        },
+        {
+            "metrics": {
+                "1": {
+                    "Dice": 0.7635402906208718,
+                    "FN": 845,
+                    "FP": 50,
+                    "IoU": 0.6175213675213675,
+                    "TN": 82048732,
+                    "TP": 1445,
+                    "n_pred": 1495,
+                    "n_ref": 2290
+                },
+                "2": {
+                    "Dice": 0.7580025608194623,
+                    "FN": 784,
+                    "FP": 539,
+                    "IoU": 0.6103092783505155,
+                    "TN": 82047677,
+                    "TP": 2072,
+                    "n_pred": 2611,
+                    "n_ref": 2856
+                }
+            },
+            "prediction_file": "/home/introai17/salamanca/nnUNet_results/Dataset502_HECKTOR2026_noGTVp0/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/validation/USZ_009.nii.gz",
+            "reference_file": "/home/introai17/salamanca/nnUNet_preprocessed/Dataset502_HECKTOR2026_noGTVp0/gt_segmentations/USZ_009.nii.gz"
+        }
+    ]
+}

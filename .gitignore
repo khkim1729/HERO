@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Logs
+*.log
+wandb/
+runs/
+lightning_logs/
+
+# Raw medical images / private data - DO NOT COMMIT
+data/
+raw_data/
+private_data/
+dicom/
+DICOM/
+nifti/
+NIFTI/
+imagesTr/
+imagesTs/
+labelsTr/
+labelsTs/
+*.dcm
+*.nii
+*.nii.gz
+*.nrrd
+*.mha
+*.mhd
+
+# nnU-Net local folders - DO NOT COMMIT unless intentionally exporting summaries only
+nnUNet_raw/
+nnUNet_preprocessed/
+nnUNet_results/
+
+# Large arrays / predictions
+*.npz
+*.npy
+*.pkl
+*.pickle
+
+# Model checkpoints - use Git LFS or release if needed
+*.pth
+*.pt
+*.ckpt
