@@ -1,0 +1,51 @@
+# configs/step_rfs.yaml
+# RFS (Recurrence-Free Survival) prediction — CoxPH pipeline
+
+paths:
+  # nnU-Net OOF prediction masks (CASE_ID.nii.gz)
+  mask_dir: /home/introai17/salamanca/outputs/Dataset502_3d_fullres_OOF_validation_final
+
+  # Raw CT/PET in imagesTr (PET = CASE_ID_0001.nii.gz)
+  # Set to null to skip PET features
+  pet_dir: /home/introai17/salamanca/nnUNet_raw/Dataset502_HECKTOR2026_noGTVp0/imagesTr
+
+  # Clinical CSV (paths.clinical_csv in common_config.yaml)
+  # Overrides common_config if set here; leave null to use common_config
+  clinical_csv: null
+
+  # 제외할 케이스 목록 (poor segmentation quality, mean Dice ~0.41)
+  # null로 설정하면 전체 751개 사용 (비교용)
+  exclude_cases: metadata/exclude_cases_48.txt
+
+  # Output directory
+  output_dir: outputs/rfs
+
+# Clinical CSV column names
+clinical:
+  patient_id_col: PatientID
+  time_col: RFS
+  event_col: Relapse
+
+  feature_cols:
+    - age
+    - gender
+    - tobacco
+    - alcohol
+    - performance_status
+    - hpv_status
+    - treatment
+    - center_id
+
+# Feature selection (univariate Cox filter + correlation pruning)
+feature_selection:
+  min_univariate_cindex: 0.5
+  max_pearson_corr: 0.9
+
+# CoxPH model settings
+model:
+  penalizer: 0.1
+  n_folds: 5
+
+# Debug: limit number of cases (null = use all)
+debug:
+  max_cases: null
