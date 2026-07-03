@@ -1,0 +1,25 @@
+{
+  "model_name": "tstage_ordinal_rf_probability_ensemble",
+  "method": "ordinal_probability_ensemble",
+  "weights": {
+    "petaware": 0.8,
+    "final": 0.2
+  },
+  "thresholds": {
+    "T_ge_T2": 0.64,
+    "T_ge_T3": 0.44,
+    "T_ge_T4": 0.35
+  },
+  "fair_oof_performance": {
+    "balanced_accuracy": 0.581272,
+    "macro_recall": 0.581272,
+    "macro_f1": 0.564200,
+    "T1_recall": 0.724551,
+    "T2_recall": 0.508961,
+    "T3_recall": 0.450549,
+    "T4_recall": 0.641026,
+    "T4_precision": 0.543478,
+    "T4_f1": 0.588235,
+    "n_pred_T4": 138
+  }
+}

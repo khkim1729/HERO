@@ -1,0 +1,2 @@
+method,balanced_accuracy,macro_recall,macro_f1,T1_recall,T2_recall,T3_recall,T4_recall,T4_precision,T4_f1,n_pred_T4,weight_petaware,weight_final,thr_ge_T2,thr_ge_T3,thr_ge_T4
+fair_ordinal_rf_probability_ensemble,0.581272,0.581272,0.564200,0.724551,0.508961,0.450549,0.641026,0.543478,0.588235,138,0.80,0.20,0.64,0.44,0.35
