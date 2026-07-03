@@ -1,0 +1,28 @@
+{
+  "model_name": "tstage_ordinal_rf_probability_ensemble",
+  "labels": [
+    "T1",
+    "T2",
+    "T3",
+    "T4"
+  ],
+  "weights": {
+    "petaware": 0.8,
+    "final": 0.2
+  },
+  "thresholds": {
+    "T_ge_2": 0.64,
+    "T_ge_3": 0.44,
+    "T_ge_4": 0.35
+  },
+  "training_info": {
+    "base_features": "/home/introai17/salamanca/outputs/tn_staging/features/tn_features_pred_oof_components_headneck_anatomy.csv",
+    "hu_petaware": "/home/introai17/salamanca/baseline_plus_hu_bone_cue_pred_oof_petaware.csv",
+    "geom_petaware": "/home/introai17/salamanca/fast_tumor_geometry_features_pred_oof_petaware.csv",
+    "hu_final": "/home/introai17/salamanca/baseline_plus_hu_bone_cue_pred_oof_final.csv",
+    "geom_final": "/home/introai17/salamanca/fast_tumor_geometry_features_pred_oof_final.csv",
+    "n_train": 745
+  },
+  "n_features_petaware": 220,
+  "n_features_final": 220
+}

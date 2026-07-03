@@ -58,3 +58,22 @@ Required columns in both input CSV files:
 - p_ge_T4
 
 Do not commit raw CT/PET images or NIfTI segmentation masks.
+
+## Full feature-to-prediction model artifact
+
+The package includes a full-trained joblib model:
+
+- models/tstage_ordinal_ensemble_final.joblib
+
+This model maps base features, HU-bone features, and geometry features to T-stage prediction.
+
+Example:
+
+    python scripts/predict_tstage_from_features.py \
+      --model models/tstage_ordinal_ensemble_final.joblib \
+      --base_features /path/to/base_features.csv \
+      --hu_petaware /path/to/hu_petaware.csv \
+      --geom_petaware /path/to/geom_petaware.csv \
+      --hu_final /path/to/hu_final.csv \
+      --geom_final /path/to/geom_final.csv \
+      --out tstage_predictions.csv
