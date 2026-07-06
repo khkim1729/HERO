@@ -241,6 +241,7 @@ def build_feature_table(
     event_col: str = "Relapse",
     exclude_cases: Optional[Path] = None,
     max_cases: Optional[int] = None,
+    use_radiomics: bool = False,  # reserved for future use
 ) -> pd.DataFrame:
     """
     Build a combined feature DataFrame (one row per patient).

@@ -1,8 +1,8 @@
 """
 pipeline/save_rfs_model.py
 
-전체 데이터로 CoxPH 학습 후 모델 저장.
-inference.py에서 로드해서 사용.
+전체 데이터로 WeibullAFT 학습 후 모델 저장.
+inference_v2.py에서 로드해서 사용.
 
 Usage:
     python pipeline/save_rfs_model.py \
@@ -23,7 +23,7 @@ if str(PROJECT_ROOT) not in sys.path:
 
 import numpy as np
 import pandas as pd
-from lifelines import CoxPHFitter
+from lifelines import WeibullAFTFitter
 from sklearn.preprocessing import StandardScaler
 
 from hero.prognosis.rfs import build_feature_table, select_features
@@ -95,8 +95,9 @@ def main() -> None:
     )
     print(f"  Selected: {selected}")
 
-    # --- 전체 데이터로 CoxPH 학습 ---
-    print("[3] Training CoxPH on full dataset ...")
+    # --- 전체 데이터로 WeibullAFT 학습 ---
+    WEIBULL_PENALIZER = 0.5   # multi-seed 실험 최고 성능 (C-index 0.6629)
+    print(f"[3] Training WeibullAFT (penalizer={WEIBULL_PENALIZER}) on full dataset ...")
     X = feature_table[selected].fillna(feature_table[selected].median())
     T = feature_table["rfs_time"].values
     E = feature_table["rfs_event"].values
@@ -108,12 +109,12 @@ def main() -> None:
     train_df["rfs_time"] = T
     train_df["rfs_event"] = E
 
-    cph = CoxPHFitter(penalizer=penalizer)
-    cph.fit(train_df, duration_col="rfs_time", event_col="rfs_event")
+    aft = WeibullAFTFitter(penalizer=WEIBULL_PENALIZER)
+    aft.fit(train_df, duration_col="rfs_time", event_col="rfs_event")
 
     # --- 저장 ---
-    with open(output_dir / "coxph_model.pkl", "wb") as f:
-        pickle.dump(cph, f)
+    with open(output_dir / "weibull_model.pkl", "wb") as f:
+        pickle.dump(aft, f)
     with open(output_dir / "scaler.pkl", "wb") as f:
         pickle.dump(scaler, f)
 
@@ -122,13 +123,14 @@ def main() -> None:
 
     save_json({
         "selected_features": selected,
-        "penalizer": penalizer,
+        "model_type": "WeibullAFT",
+        "penalizer": WEIBULL_PENALIZER,
         "n_patients": len(feature_table),
         "training_medians": training_medians,
     }, output_dir / "rfs_model_config.json")
 
     print(f"\n[Done] 저장 완료 → {output_dir}")
-    print(f"  - coxph_model.pkl")
+    print(f"  - weibull_model.pkl")
     print(f"  - scaler.pkl")
     print(f"  - rfs_model_config.json")
 
