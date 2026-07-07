@@ -153,37 +153,179 @@ def _available_nnunet_folds() -> list[str]:
     return folds
 
 
+def _same_sitk_geometry(a, b) -> bool:
+    return (
+        tuple(a.GetSize()) == tuple(b.GetSize())
+        and tuple(round(x, 6) for x in a.GetSpacing()) == tuple(round(x, 6) for x in b.GetSpacing())
+        and tuple(round(x, 6) for x in a.GetOrigin()) == tuple(round(x, 6) for x in b.GetOrigin())
+        and tuple(round(x, 6) for x in a.GetDirection()) == tuple(round(x, 6) for x in b.GetDirection())
+    )
+
+
+def _resample_to_reference(moving, reference, is_label: bool = False):
+    interp = SimpleITK.sitkNearestNeighbor if is_label else SimpleITK.sitkLinear
+    return SimpleITK.Resample(
+        moving,
+        reference,
+        SimpleITK.Transform(),
+        interp,
+        0.0,
+        moving.GetPixelID(),
+    )
+
+
+def _ensure_3d_image(img):
+    """
+    Ensure image is scalar 3D.
+
+    Grand Challenge may provide .tif inputs that SimpleITK reads as:
+      - 2D images, or
+      - VectorImage/RGB-like images.
+
+    nnU-Net expects scalar 3D images. For 2D images, we add a singleton z
+    dimension. For vector images, we use component 0.
+    """
+    if img.GetNumberOfComponentsPerPixel() > 1:
+        print(
+            f"[I/O] Input is vector image with "
+            f"{img.GetNumberOfComponentsPerPixel()} components; using component 0."
+        )
+        img = SimpleITK.VectorIndexSelectionCast(img, 0)
+
+    if img.GetDimension() == 3:
+        return img
+
+    if img.GetDimension() == 2:
+        arr = SimpleITK.GetArrayFromImage(img)  # shape: (y, x)
+        arr3 = arr[None, ...]                  # shape: (z=1, y, x)
+
+        out = SimpleITK.GetImageFromArray(arr3)
+
+        spacing2 = img.GetSpacing()
+        origin2 = img.GetOrigin()
+        direction2 = img.GetDirection()
+
+        out.SetSpacing((float(spacing2[0]), float(spacing2[1]), 1.0))
+        out.SetOrigin((float(origin2[0]), float(origin2[1]), 0.0))
+
+        identity3 = (
+            1.0, 0.0, 0.0,
+            0.0, 1.0, 0.0,
+            0.0, 0.0, 1.0,
+        )
+
+        # Extend 2D direction to 3D:
+        # [d00 d01]      [d00 d01 0]
+        # [d10 d11]  ->  [d10 d11 0]
+        #                [ 0   0  1]
+        try:
+            if len(direction2) == 4:
+                d00, d01, d10, d11 = [float(x) for x in direction2]
+                direction3 = (
+                    d00, d01, 0.0,
+                    d10, d11, 0.0,
+                    0.0, 0.0, 1.0,
+                )
+
+                det = float(np.linalg.det(np.array(direction3).reshape(3, 3)))
+                if abs(det) < 1e-8:
+                    print(
+                        f"[WARN] 2D direction produced singular 3D direction "
+                        f"det={det}; using identity."
+                    )
+                    direction3 = identity3
+            else:
+                direction3 = identity3
+
+            out.SetDirection(direction3)
+
+        except Exception as e:
+            print(f"[WARN] Failed to set extended 3D direction: {e}; using identity.")
+            out.SetDirection(identity3)
+
+        print(
+            f"[I/O] Converted 2D image to 3D: "
+            f"size={out.GetSize()}, spacing={out.GetSpacing()}, direction={out.GetDirection()}"
+        )
+        return out
+
+    raise ValueError(
+        f"Unsupported image dimension: {img.GetDimension()}, "
+        f"components={img.GetNumberOfComponentsPerPixel()}"
+    )
+
+
+
+def _read_sitk_3d(path):
+    """Read image and force scalar 3D image for .mha/.tif/.tiff inputs."""
+    return _ensure_3d_image(SimpleITK.ReadImage(str(path)))
+
+
+def _spacing3(img) -> np.ndarray:
+    """Return spacing as length-3 array even for 2D TIFF-derived images."""
+    spacing = np.array(img.GetSpacing(), dtype=float)
+
+    if spacing.size == 2:
+        spacing = np.array([spacing[0], spacing[1], 1.0], dtype=float)
+    elif spacing.size == 1:
+        spacing = np.array([spacing[0], 1.0, 1.0], dtype=float)
+    elif spacing.size > 3:
+        spacing = spacing[:3].astype(float)
+
+    return spacing
+
+
 def run_segmentation(ct_path, pet_path, ehr) -> np.ndarray:
     """
-    Returns numpy array (z, y, x) uint8 with labels 0/1/2.
-    nnU-Net expects NIfTI input → convert from .mha, run predict, read back.
+    Run nnU-Net segmentation.
+
+    Important:
+    Grand Challenge CT and PET inputs may not have identical image grids.
+    nnU-Net requires all modalities for one case to have the same shape,
+    spacing, origin, and direction. Therefore PET is resampled to the CT grid.
     """
-    with tempfile.TemporaryDirectory() as tmp_in, \
-         tempfile.TemporaryDirectory() as tmp_out:
+    ct_img = SimpleITK.ReadImage(str(ct_path))
+    pet_img = SimpleITK.ReadImage(str(pet_path))
 
-        case_id = "case"
-        # Convert .mha → .nii.gz for nnU-Net
-        ct_nii  = Path(tmp_in) / f"{case_id}_0000.nii.gz"
-        pet_nii = Path(tmp_in) / f"{case_id}_0001.nii.gz"
-        _mha_to_nifti(ct_path,  ct_nii)
-        _mha_to_nifti(pet_path, pet_nii)
+    ct_img = _ensure_3d_image(ct_img)
+    pet_img = _ensure_3d_image(pet_img)
 
-        env = os.environ.copy()
-        env["nnUNet_results"]       = str(NNUNET_DIR)
-        env["nnUNet_raw"]           = "/tmp/nnunet_raw"
-        env["nnUNet_preprocessed"]  = "/tmp/nnunet_preprocessed"
-        # non-root --user pip install → ~/.local/bin 에 설치됨
-        env["PATH"] = str(Path.home() / ".local/bin") + ":" + env.get("PATH", "")
+    print(f"[Seg] CT size={ct_img.GetSize()}, spacing={ct_img.GetSpacing()}")
+    print(f"[Seg] PET size={pet_img.GetSize()}, spacing={pet_img.GetSpacing()}")
+
+    if not _same_sitk_geometry(ct_img, pet_img):
+        print("[Seg] PET geometry differs from CT. Resampling PET to CT grid.")
+        pet_img = _resample_to_reference(pet_img, ct_img, is_label=False)
+        print(f"[Seg] PET resampled size={pet_img.GetSize()}, spacing={pet_img.GetSpacing()}")
+
+    with tempfile.TemporaryDirectory() as tmp_in, tempfile.TemporaryDirectory() as tmp_out:
+        tmp_in = Path(tmp_in)
+        tmp_out = Path(tmp_out)
+
+        # nnU-Net channel convention: case_0000 = CT, case_0001 = PET.
+        ct_nii = tmp_in / "case_0000.nii.gz"
+        pet_nii = tmp_in / "case_0001.nii.gz"
+
+        SimpleITK.WriteImage(ct_img, str(ct_nii))
+        SimpleITK.WriteImage(pet_img, str(pet_nii))
 
         folds = _available_nnunet_folds()
-        folds = folds[:1]
         print(f"[Seg] Using nnU-Net folds: {folds}")
 
-           #지금 코드는 무조건 fold 0 1 2 3 4를 쓰고 있는데, 이렇게 하면 fold_0만 있을때의 오류 차
+        env = os.environ.copy()
+        env["nnUNet_results"] = str(MODEL_PATH / "nnunet")
+        env["nnUNet_raw"] = "/tmp/nnUNet_raw"
+        env["nnUNet_preprocessed"] = "/tmp/nnUNet_preprocessed"
+        env["PATH"] = str(Path.home() / ".local/bin") + ":" + env.get("PATH", "")
+
+        nnunet_cmd = str(Path.home() / ".local/bin" / "nnUNetv2_predict")
+        if not Path(nnunet_cmd).exists():
+            nnunet_cmd = "nnUNetv2_predict"
+
         subprocess.run([
-            "nnUNetv2_predict",
-            "-i", tmp_in,
-            "-o", tmp_out,
+            nnunet_cmd,
+            "-i", str(tmp_in),
+            "-o", str(tmp_out),
             "-d", DATASET_NAME,
             "-c", "3d_fullres",
             "-f", *folds,
@@ -192,18 +334,21 @@ def run_segmentation(ct_path, pet_path, ehr) -> np.ndarray:
             "--disable_tta",
         ], env=env, check=True)
 
-        pred_path = Path(tmp_out) / f"{case_id}.nii.gz"
-        if not pred_path.exists():
-            candidates = list(Path(tmp_out).glob("*.nii.gz"))
-            if not candidates:
-                raise FileNotFoundError(f"nnU-Net produced no output in {tmp_out}")
-            pred_path = candidates[0]
+        pred_files = sorted(tmp_out.glob("*.nii.gz"))
+        if not pred_files:
+            raise FileNotFoundError(f"No nnU-Net prediction found in {tmp_out}")
 
-        pred_nii = nib.load(str(pred_path))
-        seg_array = np.round(pred_nii.get_fdata()).astype(np.uint8)
+        pred_img = SimpleITK.ReadImage(str(pred_files[0]))
 
-    print(f"[Seg] GTVp voxels={int((seg_array==1).sum())}, GTVn voxels={int((seg_array==2).sum())}")
-    return seg_array
+        # Ensure segmentation is on CT grid before converting to numpy/output.
+        if not _same_sitk_geometry(pred_img, ct_img):
+            print("[Seg] Prediction geometry differs from CT. Resampling label to CT grid.")
+            pred_img = _resample_to_reference(pred_img, ct_img, is_label=True)
+
+        seg = SimpleITK.GetArrayFromImage(pred_img).astype(np.uint8)
+
+    print(f"[Seg] output segmentation shape={seg.shape}, labels={np.unique(seg).tolist()}")
+    return seg
 
 
 def _mha_to_nifti(src: str, dst: Path) -> None:
@@ -325,8 +470,8 @@ def run_tn_staging(ct_path, pet_path, ehr, segmentation_array) -> tuple[str, str
     N-stage:
         existing Random Forest package with model/feature_columns.
     """
-    ct_img = SimpleITK.ReadImage(str(ct_path))
-    spacing = np.array(ct_img.GetSpacing())  # (sx, sy, sz) in mm
+    ct_img = _read_sitk_3d(ct_path)
+    spacing = _spacing3(ct_img)
 
     gtv_feats = _extract_gtv_features(segmentation_array, spacing)
     clin_feats = _parse_ehr_tn(ehr)
@@ -493,17 +638,28 @@ def run_prognosis(ct_path, pet_path, ehr, segmentation_array, t_stage, n_stage) 
     """
     Returns float RFS risk score (higher = higher recurrence risk).
     """
-    with open(RFS_DIR / "coxph_model.pkl", "rb") as f:
-        cph = pickle.load(f)
-    with open(RFS_DIR / "scaler.pkl", "rb") as f:
-        scaler = pickle.load(f)
     with open(RFS_DIR / "rfs_model_config.json") as f:
         cfg = json.load(f)
+
     selected: list[str] = cfg["selected_features"]
+    model_type = str(cfg.get("model_type", "CoxPH")).lower()
+
+    if model_type in {"weibullaft", "weibull_aft", "weibull"}:
+        with open(RFS_DIR / "weibull_model.pkl", "rb") as f:
+            rfs_model = pickle.load(f)
+        print("[Prognosis] Loaded WeibullAFT model")
+    else:
+        with open(RFS_DIR / "coxph_model.pkl", "rb") as f:
+            rfs_model = pickle.load(f)
+        print("[Prognosis] Loaded CoxPH model")
+
+    with open(RFS_DIR / "scaler.pkl", "rb") as f:
+        scaler = pickle.load(f)
+
 
     # Get spacing from CT for volume/geometry calculation
-    ct_sitk = SimpleITK.ReadImage(str(ct_path))
-    spacing = np.array(ct_sitk.GetSpacing())   # (sx, sy, sz) — matches nibabel (x,y,z) axes
+    ct_sitk = _read_sitk_3d(ct_path)
+    spacing = _spacing3(ct_sitk)
     vox_vol = float(np.prod(spacing))
 
     mask = segmentation_array.astype(np.int32)  # (nx, ny, nz) = (x,y,z) from nibabel
@@ -538,14 +694,14 @@ def run_prognosis(ct_path, pet_path, ehr, segmentation_array, t_stage, n_stage) 
     # PET SUV features — resample PET to CT space so shapes match mask (nz,ny,nx)
     pet_feats = {k: np.nan for k in ["gtvp_suv_max", "gtvp_suv_mean", "gtvp_tlg", "gtvn_suv_max"]}
     try:
-        pet_sitk_raw = SimpleITK.ReadImage(str(pet_path))
+        pet_sitk_raw = _read_sitk_3d(pet_path)
         resampler = SimpleITK.ResampleImageFilter()
         resampler.SetReferenceImage(ct_sitk)
         resampler.SetInterpolator(SimpleITK.sitkLinear)
         resampler.SetDefaultPixelValue(0.0)
         pet_in_ct = resampler.Execute(pet_sitk_raw)
         # GetArrayFromImage returns (z,y,x); mask from nibabel is (x,y,z) → transpose
-        pet_arr = SimpleITK.GetArrayFromImage(pet_in_ct).transpose(2, 1, 0)  # → (x,y,z)
+        pet_arr = SimpleITK.GetArrayFromImage(pet_in_ct)  # (z,y,x), matches segmentation mask
         del pet_sitk_raw, pet_in_ct
         gc.collect()
         if pet_arr.shape == mask.shape:
@@ -626,9 +782,30 @@ def run_prognosis(ct_path, pet_path, ehr, segmentation_array, t_stage, n_stage) 
     X = X.fillna(0.0)   # fallback: remaining NaN → 0
     X_scaled = pd.DataFrame(scaler.transform(X), columns=selected)
 
-    risk = float(cph.predict_partial_hazard(X_scaled).iloc[0])
-    print(f"[Prognosis] RFS risk = {risk:.4f}")
-    return risk
+    if model_type in {"weibullaft", "weibull_aft", "weibull"}:
+        # WeibullAFT predicts survival time. Convert to positive risk score
+        # so that higher value still means worse prognosis, consistent with CoxPH partial hazard.
+        try:
+            pred_time = float(rfs_model.predict_median(X_scaled).iloc[0])
+            pred_kind = "median"
+        except Exception as e:
+            print(f"[WARN] WeibullAFT predict_median failed: {e}; using predict_expectation")
+            pred_time = float(rfs_model.predict_expectation(X_scaled).iloc[0])
+            pred_kind = "expectation"
+
+        if not np.isfinite(pred_time) or pred_time <= 0:
+            print(f"[WARN] Invalid WeibullAFT predicted {pred_kind} survival={pred_time}; fallback risk=0.0")
+            risk = 0.0
+        else:
+            risk = 1.0 / pred_time
+
+        print(f"[Prognosis] WeibullAFT predicted_{pred_kind}_survival={pred_time:.4f}, risk={risk:.6f}")
+
+    else:
+        risk = float(rfs_model.predict_partial_hazard(X_scaled).iloc[0])
+        print(f"[Prognosis] CoxPH RFS risk = {risk:.6f}")
+
+    return float(risk)
 
 
 # ===========================================================================
@@ -658,14 +835,39 @@ def write_json(location: Path, data) -> None:
 
 def write_segmentation(location: Path, array: np.ndarray, reference_path: str) -> None:
     location.mkdir(parents=True, exist_ok=True)
-    reference = SimpleITK.ReadImage(reference_path)
+
+    reference = SimpleITK.ReadImage(str(reference_path))
+    reference = _ensure_3d_image(reference)
+
     if array.ndim == 4 and array.shape[0] == 1:
         array = array[0]
-    # nibabel gives (x, y, z) order; SimpleITK.GetImageFromArray expects (z, y, x)
-    array_zyx = array.transpose(2, 1, 0)
-    img = SimpleITK.GetImageFromArray(array_zyx.astype(np.uint8))
+
+    arr = array.astype(np.uint8)
+
+    # SimpleITK.GetArrayFromImage gives (z, y, x).
+    expected_zyx = tuple(reversed(reference.GetSize()))
+    expected_xyz = tuple(reference.GetSize())
+
+    print(f"[I/O] write_segmentation array shape={arr.shape}")
+    print(f"[I/O] reference size xyz={reference.GetSize()}, expected zyx={expected_zyx}")
+
+    if tuple(arr.shape) == expected_zyx:
+        arr_zyx = arr
+    elif tuple(arr.shape) == expected_xyz:
+        arr_zyx = arr.transpose(2, 1, 0)
+    else:
+        raise ValueError(
+            f"Segmentation shape {arr.shape} does not match reference. "
+            f"Expected zyx={expected_zyx} or xyz={expected_xyz}."
+        )
+
+    img = SimpleITK.GetImageFromArray(arr_zyx.astype(np.uint8))
     img.CopyInformation(reference)
-    SimpleITK.WriteImage(img, str(location / "output.mha"), useCompression=True)
+
+    out_path = location / "output.mha"
+    SimpleITK.WriteImage(img, str(out_path), useCompression=True)
+    print(f"[I/O] Wrote segmentation to {out_path}")
+
 
 
 if __name__ == "__main__":
