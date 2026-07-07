@@ -1,253 +1,245 @@
-# HERO — HECKTOR 2026 Grand Challenge Algorithm
+# HERO for HECKTOR 2026
 
-This repository contains the container source code for the HECKTOR 2026 HERO algorithm.
+HERO is a complete research pipeline for the HECKTOR 2026 Challenge covering three tightly coupled tasks:
 
-The large runtime artifacts are **not stored in Git**:
+1. 3D tumor segmentation from PET/CT.
+2. TN staging with T-stage and N-stage prediction.
+3. Prognosis modeling with relapse classification and relapse-free survival risk estimation.
 
-- `hecktor2026-task.tar.gz`: Docker image archive for Grand Challenge
-- `model.tar.gz`: model archive extracted to `/opt/ml/model/` during inference
+The repository is designed to start on `data/sample_5/` and switch automatically to `data/hecktor2026_training/` once the full training set is available.
 
-These files should be shared separately through the team server or uploaded directly to Grand Challenge.
+![Sample PET/CT Slices with Tumor Overlay](sample_slice_grid.png)
 
----
+## Core Methodology
 
-## Repository contents
+Our solution is built around four principles:
+
+1. A multi-task network with a 3D UX-Net style encoder inside an nnU-Net style workflow. The encoder uses large-kernel ConvNeXt-inspired 3D blocks plus channel attention to learn PET/CT weighting directly from the fused image volume.
+2. Out-of-fold label noise reduction. A fast 3D segmentation model is trained in 5-fold cross-validation, then original masks are compared against OOF predictions to flag noisy cases and create a cleaned training index.
+3. Multi-modal fusion. Global image features from the encoder bottleneck are fused with processed clinical features for TN staging and prognosis modeling.
+4. T4-safe inference. Sliding-window inference and batch size 1 keep memory usage compatible with practical competition hardware.
+
+## End-to-End Architecture
+
+```mermaid
+flowchart LR
+    A[PET Volume] --> D[Fused PET/CT Input]
+    B[CT Volume] --> D
+    C[Clinical CSV] --> H[Clinical Preprocessor]
+    D --> E[3D UX-Net Encoder<br/>Large-kernel ConvNeXt-style Blocks<br/>Channel Attention]
+    E --> F[Segmentation Decoder]
+    F --> G[Task 1: 3D Tumor Mask]
+    E --> I[Global Pooling]
+    H --> J[Staging Feature Fusion]
+    H --> K[Prognosis Feature Fusion]
+    I --> J
+    I --> K
+    J --> L[MLP Head]
+    L --> M[Task 2: T-stage / N-stage]
+    K --> N[MLP Head]
+    N --> O[Task 3: Relapse / RFS Risk]
+```
+
+## Repository Layout
 
 ```text
-Dockerfile
-inference.py
-requirements.txt
-.dockerignore
-README.md
-Do not commit the following files:
-
-model/
-model.tar.gz
-hecktor2026-task.tar.gz
-test/
-__pycache__/
-*.log
-Algorithm pipeline
-
-The inference pipeline has three stages:
+HERO/
+├── configs/
+│   ├── common_config.yaml
+│   ├── step1_label_cleaning.yaml
+│   ├── step2_multitask.yaml
+│   └── step3_inference.yaml
+├── hero/
+│   ├── data/
+│   ├── models/
+│   └── utils/
+├── pipeline/
+│   ├── step1_label_cleaning.py
+│   ├── step2_train_multitask.py
+│   └── step3_inference.py
+├── eda_images.py
+├── eda_clinical.py
+├── sample_slice_grid.png
+└── README.md
+```
+
+## Data Assumptions
+
+- Sample image data: `data/sample_5/<PatientID>/`
+- Sample clinical table: `data/sample_5/HECKTOR_2026_training_data.csv`
+- Full training data target: `data/hecktor2026_training/`
+
+Each patient folder is expected to contain:
+
+- `<PatientID>__CT.nii.gz`
+- `<PatientID>__PT.nii.gz`
+- `<PatientID>.nii.gz` for the segmentation mask
+
+## Clinical Processing
+
+`eda_clinical.py` performs:
+
+- kNN imputation for numerical missing values such as tobacco, alcohol, and performance status.
+- Most-frequent imputation plus one-hot encoding for categorical clinical variables.
+- Target encoding for T-stage and N-stage.
+- Export of processed features and preprocessing artifacts to `outputs/clinical/`.
+
+## MONAI Transform Stack
+
+The transform implementation is in [hero/data/transforms.py](hero/data/transforms.py).
+
+The sample 5-case cohort is not isotropic:
+
+- In-plane spacing is approximately `0.98-1.17 mm`.
+- Slice spacing varies from `1.5 mm` to `3.31 mm`.
+- The largest observed tumor bounding box in the sample subset is about `57.6 x 46.9 x 67.5 mm`.
+
+Based on that, the pipeline uses:
+
+- `pixdim=(1.0, 1.0, 2.0)` to reduce z-axis anisotropy without over-expanding memory.
+- `roi_size=(160, 160, 96)` which corresponds to about `160 x 160 x 192 mm` after resampling, large enough to cover the observed tumor extent with anatomical context.
+- `CropForegroundd` before cropping so the network focuses on the head-and-neck field instead of empty air.
+- Training-time fixed-size crop for stable batch memory.
+- Validation-time fixed-size crop for the multi-task heads.
+- Inference-time sliding-window segmentation on the foreground-cropped volume, while staging/prognosis heads consume a center-cropped ROI tensor to stay T4-safe.
 
-Segmentation
-nnU-Net v2 3D full-resolution model
-CT and PET are used as two input channels
-Output labels:
-0: background
-1: GTVp
-2: GTVn
-TN staging
-T-stage: ordinal RF probability ensemble
-N-stage: Random Forest classifier
-Uses segmentation-derived tumor features and EHR clinical features
-RFS prognosis
-CoxPH risk model
-Uses clinical and tumor-burden features
-Output is a continuous risk score, where higher means higher recurrence risk
-Grand Challenge I/O
-Inputs
+The current training stack is:
+
+```python
+from monai.transforms import (
+    Compose,
+    CropForegroundd,
+    LoadImaged,
+    EnsureChannelFirstd,
+    EnsureTyped,
+    Orientationd,
+    Spacingd,
+    CenterSpatialCropd,
+    SpatialPadd,
+    ScaleIntensityRangePercentilesd,
+)
 
-Grand Challenge provides inputs at:
+train_transforms = Compose([
+    LoadImaged(keys=["image", "label"]),
+    EnsureChannelFirstd(keys=["image", "label"]),
+    EnsureTyped(keys=["image", "label"]),
+    Orientationd(keys=["image", "label"], axcodes="RAS"),
+    Spacingd(keys=["image", "label"], pixdim=(1.0, 1.0, 2.0), mode=("bilinear", "nearest")),
+    ScaleIntensityRangePercentilesd(keys="image", lower=0, upper=99.5, b_min=0, b_max=1),
+    CropForegroundd(keys=["image", "label"], source_key="image", allow_smaller=True),
+    CenterSpatialCropd(keys=["image", "label"], roi_size=(160, 160, 96)),
+    SpatialPadd(keys=["image", "label"], spatial_size=(160, 160, 96)),
+])
+```
 
-/input/images/ct/<uuid>.mha or /input/images/ct/<uuid>.tif
-/input/images/pet/<uuid>.mha or /input/images/pet/<uuid>.tif
-/input/ehr.json
+The inference stack keeps the same spacing and intensity normalization, but omits the fixed crop before segmentation so `SlidingWindowInferer` can cover the full foreground volume.
 
-The code does not assume a fixed filename. It searches the CT and PET folders for supported image files.
+## User Manual
 
-Outputs
+### 1. Environment activation
 
-The algorithm writes:
+If using `venv`:
 
-/output/images/head-neck-tumor-segmentation/output.mha
-/output/t-stage.json
-/output/n-stage.json
-/output/rfs.json
+```bash
+source .venv/bin/activate
+```
 
-Expected output examples:
+If using Conda:
 
-"T2"
-"N0"
-0.9061842071864938
-Required model structure
+```bash
+conda activate hero
+```
 
-When model.tar.gz is extracted, it should produce:
+### 2. Clone the repository and move into it
 
-model/
-├── nnunet/
-│   └── Dataset502_HECKTOR2026_noGTVp0/
-│       └── nnUNetTrainer__nnUNetPlans__3d_fullres/
-│           ├── fold_0/checkpoint_final.pth
-│           ├── fold_1/checkpoint_final.pth
-│           ├── fold_2/checkpoint_final.pth
-│           ├── fold_3/checkpoint_final.pth
-│           └── fold_4/checkpoint_final.pth
-├── tn_staging/
-│   ├── T/T_stage_rf_model.joblib
-│   └── N/N_stage_rf_model.joblib
-└── rfs/
-    ├── coxph_model.pkl
-    ├── scaler.pkl
-    └── rfs_model_config.json
+```bash
+git clone https://github.com/khkim1729/HERO.git
+cd HERO
+```
 
-For Grand Challenge upload, model.tar.gz must contain these directories at the archive root:
+### 3. Run EDA
 
-./nnunet/
-./tn_staging/
-./rfs/
+```bash
+python eda_images.py --data-root data/sample_5 --output sample_slice_grid.png
+python eda_clinical.py --clinical-csv data/sample_5/HECKTOR_2026_training_data.csv --output-dir outputs/clinical
+```
 
-It should not contain:
+### 4. Edit the configuration files
 
-./model/nnunet/
-How to obtain the prebuilt artifacts
+The repository now uses one global config plus one step-specific config per pipeline stage:
 
-From the team server:
+- `configs/common_config.yaml`: paths, random seed, runtime, device, workers.
+- `configs/step1_label_cleaning.yaml`: label-cleaning model, spacing, ROI, folds, optimization.
+- `configs/step2_multitask.yaml`: multi-task model, spacing, ROI, losses, optimization, metric plotting.
+- `configs/step3_inference.yaml`: sliding-window inference and threshold settings.
 
-scp introai17@147.46.121.38:/home/introai17/salamanca/inference/hecktor2026-task.tar.gz .
-scp introai17@147.46.121.38:/home/introai17/salamanca/inference/model.tar.gz .
+This split is intentional because step 1 and step 2 use different models and different experiment knobs. Keeping one giant model config becomes hard to track once multiple segmentation backbones, fusion heads, or inference settings are introduced.
 
-Check file sizes:
+The most common edits are:
 
-ls -lh hecktor2026-task.tar.gz model.tar.gz
+- `paths.data_root`, `paths.full_training_root`, `paths.clinical_csv` in `configs/common_config.yaml`
+- `data.pixdim`, `data.roi_size`, `optimization.epochs` in `configs/step1_label_cleaning.yaml`
+- `data.pixdim`, `data.roi_size`, `optimization.max_epochs`, `losses.*` in `configs/step2_multitask.yaml`
+- `inference.overlap`, `inference.threshold` in `configs/step3_inference.yaml`
 
-Expected approximate sizes:
+### 5. Run the 3-step pipeline
 
-hecktor2026-task.tar.gz   ~6 GB
-model.tar.gz              ~2 GB
+```bash
+python pipeline/step1_label_cleaning.py --common-config configs/common_config.yaml --step-config configs/step1_label_cleaning.yaml
+python pipeline/step2_train_multitask.py --common-config configs/common_config.yaml --step-config configs/step2_multitask.yaml
+python pipeline/step3_inference.py --common-config configs/common_config.yaml --step-config configs/step3_inference.yaml
+```
 
-Verify archives:
+For an explicit GPU selection sanity run:
 
-gzip -t hecktor2026-task.tar.gz
-gzip -t model.tar.gz
+```bash
+CUDA_VISIBLE_DEVICES=2,3 python pipeline/step1_label_cleaning.py --common-config configs/common_config.yaml --step-config configs/step1_label_cleaning.yaml
+CUDA_VISIBLE_DEVICES=2,3 python pipeline/step2_train_multitask.py --common-config configs/common_config.yaml --step-config configs/step2_multitask.yaml
+CUDA_VISIBLE_DEVICES=2,3 python pipeline/step3_inference.py --common-config configs/common_config.yaml --step-config configs/step3_inference.yaml
+```
 
-Verify model contents:
+### 6. Checkpoint management
 
-tar -tzf model.tar.gz | head
-tar -tzf model.tar.gz | grep -E "fold_[0-4]/checkpoint_final\.pth$" | wc -l
+Model checkpoints are written into `checkpoints/` with metric-aware filenames. The implementation uses:
 
-Expected checkpoint count:
+```text
+best_model_epoch_{e}_dice_{d:.4f}_cindex_{c:.4f}.pth
+```
 
-5
-Upload to Grand Challenge
+This follows the intended convention of storing epoch and validation metrics in the filename, similar to `model_epoch_X_val_dice_Y_cindex_Z.pth`.
 
-Upload the files separately.
+### 7. Outputs
 
-Container
+- EDA image: `sample_slice_grid.png`
+- Processed clinical tables: `outputs/clinical/`
+- Cleaned label index: `outputs/cleaned_dataset_index.json`
+- Training history: `checkpoints/training_history.json`
+- Training metric grid: `outputs/training/training_metrics_grid.png`
+- Inference masks: `outputs/inference/segmentation/*.nii.gz`
+- Staging and prognosis table: `outputs/inference/staging_prognosis_predictions.csv`
 
-Upload this file under:
+## Pipeline Summary
 
-Algorithms > HERO > Containers
+### Step 1. OOF label cleaning
 
-File:
+`pipeline/step1_label_cleaning.py` trains a fast 3D MONAI UNet in 5-fold cross-validation, compares OOF predictions against original masks, and writes a cleaned patient index.
 
-hecktor2026-task.tar.gz
+### Step 2. Multi-task training
 
-This file should be generated by:
+`pipeline/step2_train_multitask.py` trains a shared 3D UX-Net style encoder with:
 
-docker save hecktor2026-task | gzip -c > hecktor2026-task.tar.gz
-Model
+- A decoder head for tumor segmentation.
+- A staging head for T-stage and N-stage prediction using pooled image features plus partial clinical features.
+- A prognosis head for relapse and RFS prediction using pooled image features plus the full processed clinical vector.
 
-Upload this file under:
+### Step 3. T4-safe inference
 
-Algorithms > HERO > Models
+`pipeline/step3_inference.py` runs sliding-window inference with batch size 1, exports segmentation masks in NIfTI format, and writes task 2 and task 3 predictions to CSV.
 
-File:
+## Competition Readiness Notes
 
-model.tar.gz
-
-This file should be generated by:
-
-tar -czf model.tar.gz -C model .
-
-After upload, make sure the correct container image and model version are active.
-
-Rebuild the container image locally
-
-From this repository:
-
-docker build -t hecktor2026-task .
-docker save hecktor2026-task | gzip -c > hecktor2026-task.tar.gz
-
-Verify:
-
-gzip -t hecktor2026-task.tar.gz
-Repack the model archive
-
-If the model/ folder is available locally:
-
-chmod -R a+rX model
-tar -czf model.tar.gz -C model .
-gzip -t model.tar.gz
-
-Verify:
-
-tar -tzf model.tar.gz | head
-tar -tzf model.tar.gz | grep -E "fold_[0-4]/checkpoint_final\.pth$" | wc -l
-Local test
-
-Prepare input folder:
-
-test/input/interf0/images/ct/case.mha
-test/input/interf0/images/pet/case.mha
-test/input/interf0/ehr.json
-
-Example EHR:
-
-{
-  "CenterID": 1,
-  "Gender": 1,
-  "Age": 68,
-  "Tobacco Consumption": 0,
-  "Alcohol Consumption": 0,
-  "Performance Status": 0,
-  "Treatment": 1,
-  "M-stage": "Mx",
-  "HPV Status": 0
-}
-
-Run with GPU:
-
-mkdir -p test/output/interf0
-
-docker run --rm --gpus all --shm-size=16g \
-  -v "$PWD/test/input/interf0:/input:ro" \
-  -v "$PWD/test/output/interf0:/output" \
-  -v "$PWD/model:/opt/ml/model:ro" \
-  hecktor2026-task
-
-Expected outputs:
-
-test/output/interf0/images/head-neck-tumor-segmentation/output.mha
-test/output/interf0/t-stage.json
-test/output/interf0/n-stage.json
-test/output/interf0/rfs.json
-Compatibility checks
-
-Check package versions inside the image:
-
-docker run --rm --entrypoint bash hecktor2026-task -lc '
-which nnUNetv2_predict
-python - <<PY
-import torch, sklearn, lifelines
-print("torch:", torch.__file__, torch.__version__, torch.version.cuda)
-print("sklearn:", sklearn.__version__)
-print("lifelines:", lifelines.__version__)
-PY
-'
-
-Expected:
-
-torch should load from /opt/conda, not /home/user/.local
-scikit-learn should be 1.7.2
-nnUNetv2_predict should be available
-Notes
-model.tar.gz is not part of the container image.
-Grand Challenge extracts model.tar.gz to /opt/ml/model/.
-The container should write only to /output and /tmp.
-Current runtime settings use nnU-Net with TTA disabled and limited worker counts for stability:
--npp 1
--nps 1
---disable_tta
-
+- The code is modular so stronger losses, survival objectives, and ensembling can be added without changing the repository layout.
+- The data discovery logic is config-driven and will use the full HECKTOR 2026 training directory automatically when it becomes available.
+- The cleaned label index from step 1 is enforced during step 2 training to reduce supervision noise.
+- The sample 5-case sanity run was executed end-to-end on GPU, producing `outputs/cleaned_dataset_index.json`, `checkpoints/best_model_epoch_*.pth`, `outputs/training/training_metrics_grid.png`, segmentation NIfTI files, and `outputs/inference/staging_prognosis_predictions.csv`.
+- Metrics on the sample run are intentionally weak because the cleaned training subset contains only 4 cases after OOF filtering; this run is for pipeline validation, not for meaningful model selection.
