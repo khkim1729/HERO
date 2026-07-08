@@ -1,0 +1,13 @@
+model/
+model.tar.gz
+hecktor2026-task*.tar.gz
+*.bak.*
+__pycache__/
+*.pyc
+sanity.log
+model_search_report.txt
+model_candidates.txt
+joblib_inspection.txt
+git_model_hits.txt
+tar_model_hits.txt
+rfs_csv_scan.txt
