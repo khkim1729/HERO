@@ -809,7 +809,7 @@ def run_prognosis(ct_path, pet_path, ehr, segmentation_array, t_stage, n_stage) 
 
     # Clinical features — apply same encoding as training (_encode_clinical in rfs.py):
     #   binary vars (gender, tobacco, alcohol, hpv_status, treatment): 0→-1, 1→1, missing→0
-    #   continuous (age, performance_status, center_id): raw value, missing→0 or median
+    #   continuous (age, performance_status, center_id): raw value, missing -> np.nan so training_medians can impute
     def _f_raw(key):
         v = ehr.get(key)
         if v is None or str(v).strip() in ("", "nan"):
@@ -833,9 +833,9 @@ def run_prognosis(ct_path, pet_path, ehr, segmentation_array, t_stage, n_stage) 
             return 0.0
         return 1.0 if v == 1.0 else -1.0
 
-    def _f_continuous(key, missing_val=0.0):
+    def _f_continuous(key):
         v = _f_raw(key)
-        return v if v is not None else missing_val
+        return v if v is not None else np.nan
 
     all_feats = {
         "gtvp_volume_mm3":           gtvp_vol_mm3,

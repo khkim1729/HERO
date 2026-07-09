@@ -48,8 +48,11 @@ This was used to avoid CPU RAM failure on very large validation cases.
 
 This folder includes cleaned TN staging artifacts under:
 
-```text
-model/tn_staging/T/T_stage_rf_model.joblib
-model/tn_staging/N/N_stage_rf_model.joblib
+- model/tn_staging/T/T_stage_rf_model.joblib
+- model/tn_staging/N/N_stage_rf_model.joblib
 
-The T/N artifacts were rebuilt after removing clinical_Relapse and clinical_RFS from the model feature lists. See TN_STAGE_FIXED_NOTES.md.
+The T/N artifacts were rebuilt after removing clinical_Relapse and clinical_RFS from the model feature lists.
+
+This version also fixes RFS/prognosis EHR missing-value handling: missing continuous EHR values now become np.nan so the stored training_medians imputation logic can run.
+
+See TN_STAGE_FIXED_NOTES.md.

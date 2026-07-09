@@ -11,61 +11,55 @@ The TN staging artifacts were rebuilt to remove outcome-derived clinical columns
 
 These columns are not available at inference time.
 
+The RFS/prognosis EHR parser was also fixed so missing continuous EHR values are passed as np.nan, allowing the stored training_medians imputation logic to work.
+
 ## Active artifacts included here
 
-```text
-model/tn_staging/T/T_stage_rf_model.joblib
-model/tn_staging/N/N_stage_rf_model.joblib
-T-stage
+- model/tn_staging/T/T_stage_rf_model.joblib
+- model/tn_staging/N/N_stage_rf_model.joblib
+
+## T-stage
 
 Model type:
 
-tstage_ordinal_rf_probability_ensemble
+- tstage_ordinal_rf_probability_ensemble
 
 Structure:
 
-branches:
-  - petaware
-  - final
-
-ordinal classifiers:
-  - T_ge_2
-  - T_ge_3
-  - T_ge_4
-
-weights:
-  petaware = 0.8
-  final    = 0.2
-
-thresholds:
-  T_ge_2 = 0.64
-  T_ge_3 = 0.44
-  T_ge_4 = 0.35
+- branches: petaware, final
+- ordinal classifiers: T_ge_2, T_ge_3, T_ge_4
+- weights: petaware = 0.8, final = 0.2
+- thresholds: T_ge_2 = 0.64, T_ge_3 = 0.44, T_ge_4 = 0.35
 
 Clean OOF run:
 
-n_train = 745
-petaware n_features = 217
-final n_features = 217
-OOF balanced accuracy = 0.5637
-OOF macro recall = 0.5637
-OOF macro F1 = 0.5316
-N-stage
+- n_train = 745
+- petaware n_features = 217
+- final n_features = 217
+- OOF balanced accuracy = 0.5637
+- OOF macro recall = 0.5637
+- OOF macro F1 = 0.5316
+
+## N-stage
 
 Model type:
 
-RandomForestClassifier package with model + feature_columns
+- RandomForestClassifier package with model + feature_columns
 
 Clean OOF run:
 
-n_rows = 751
-n_features = 47
-OOF balanced accuracy = 0.6201870091380036
-OOF macro recall = 0.6201870091380036
-Verification
+- n_rows = 751
+- n_features = 47
+- OOF balanced accuracy = 0.6201870091380036
+- OOF macro recall = 0.6201870091380036
 
-Both active TN artifacts were checked with binary scan:
+## Verification
 
-clinical_Relapse: 0
-clinical_RFS: 0
+Both active TN artifacts were checked with binary/string scan:
 
+- clinical_Relapse: 0
+- clinical_RFS: 0
+
+RFS EHR continuous missing-value handling:
+
+- missing age/performance_status/center_id -> np.nan -> training_medians imputation
