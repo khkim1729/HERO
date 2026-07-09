@@ -374,39 +374,57 @@ def run_segmentation(ct_path, pet_path, ehr) -> np.ndarray:
     voxel_count = int(np.prod(ct_img.GetSize()))
     print(f"[Seg] voxel_count={voxel_count:,}")
 
-    # For oversized cases: crop to head-and-neck region, infer, paste back
+    # For oversized cases: crop to head-and-neck region (Z=500 + XY body bbox), infer, paste back
     ct_orig = None
     crop_z_start = 0
+    y_start, x_start = 0, 0
+
     if voxel_count > 100_000_000:
-        print(f"[Seg] Large case — cropping to head-and-neck region")
-        ct_orig = ct_img  # keep original for paste-back
-        ct_arr = SimpleITK.GetArrayFromImage(ct_img)  # shape: Z,Y,X
+        print(f"[Seg] Large case — applying head-and-neck crop (Z=500 + XY body bbox)")
+        ct_arr = SimpleITK.GetArrayFromImage(ct_img)
 
-        # Find head-and-neck by HU > -200 (tissue) along Z axis
         tissue_mask = ct_arr > -200
-        z_has_tissue = tissue_mask.any(axis=(1, 2))
-        z_indices = np.where(z_has_tissue)[0]
 
-        # direction z=1.0: Z increases from feet to head
-        # so head-and-neck is at the HIGH end of Z axis
-        z_total = ct_arr.shape[0]
+        # Z: direction z=1.0 (feet->head), take top 500 slices
+        z_indices = np.where(tissue_mask.any(axis=(1, 2)))[0]
         if len(z_indices) > 0:
             z_end = min(ct_arr.shape[0], z_indices[-1] + 1)
-            z_start = max(0, z_end - 400)
+            z_start = max(0, z_end - 500)
         else:
             z_end = ct_arr.shape[0]
-            z_start = max(0, z_end - 400)
+            z_start = max(0, z_end - 500)
 
+        # XY: body bounding box with 10 voxel margin
+        xy_tissue = tissue_mask.any(axis=0)
+        y_idx = np.where(xy_tissue.any(axis=1))[0]
+        x_idx = np.where(xy_tissue.any(axis=0))[0]
+        if len(y_idx) > 0 and len(x_idx) > 0:
+            y_start = max(0, y_idx[0] - 10)
+            y_end   = min(ct_arr.shape[1], y_idx[-1] + 11)
+            x_start = max(0, x_idx[0] - 10)
+            x_end   = min(ct_arr.shape[2], x_idx[-1] + 11)
+        else:
+            y_start, y_end = 0, ct_arr.shape[1]
+            x_start, x_end = 0, ct_arr.shape[2]
+
+        ct_arr_crop = ct_arr[z_start:z_end, y_start:y_end, x_start:x_end]
+        crop_voxels = int(np.prod(ct_arr_crop.shape))
+        print(f"[Seg] Cropped Z:[{z_start},{z_end}] Y:[{y_start},{y_end}] X:[{x_start},{x_end}] -> {crop_voxels/1e6:.1f}M voxels")
+
+        # If still too large after crop, return zero segmentation
+        if crop_voxels > 100_000_000:
+            print(f"[Seg] Still too large after crop ({crop_voxels/1e6:.1f}M > 100M); returning zero segmentation.")
+            return np.zeros(tuple(reversed(ct_img.GetSize())), dtype=np.uint8)
+
+        ct_orig = ct_img
         crop_z_start = z_start
-        ct_arr_crop = ct_arr[z_start:z_end]
-        print(f"[Seg] Cropped Z: [{z_start}:{z_end}] ({z_end-z_start} slices)")
 
-        # Rebuild cropped SimpleITK image with correct geometry
         ct_crop_img = SimpleITK.GetImageFromArray(ct_arr_crop)
         origin = list(ct_img.GetOrigin())
         spacing = ct_img.GetSpacing()
         direction = ct_img.GetDirection()
-        # Adjust Z origin
+        origin[0] = origin[0] + x_start * spacing[0]
+        origin[1] = origin[1] + y_start * spacing[1]
         origin[2] = origin[2] + z_start * spacing[2]
         ct_crop_img.SetOrigin(tuple(origin))
         ct_crop_img.SetSpacing(spacing)
@@ -475,7 +493,11 @@ def run_segmentation(ct_path, pet_path, ehr) -> np.ndarray:
     if ct_orig is not None:
         orig_shape = tuple(reversed(ct_orig.GetSize()))  # Z,Y,X
         full_seg = np.zeros(orig_shape, dtype=np.uint8)
-        full_seg[crop_z_start:crop_z_start + seg.shape[0], :seg.shape[1], :seg.shape[2]] = seg
+        full_seg[
+            crop_z_start:crop_z_start + seg.shape[0],
+            y_start:y_start + seg.shape[1],
+            x_start:x_start + seg.shape[2]
+        ] = seg
         seg = full_seg
         print(f"[Seg] Pasted back to full CT shape={seg.shape}")
 
