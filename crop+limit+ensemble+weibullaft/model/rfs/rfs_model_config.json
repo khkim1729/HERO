@@ -1,0 +1,37 @@
+{
+  "selected_features": [
+    "age",
+    "gender",
+    "tobacco",
+    "alcohol",
+    "performance_status",
+    "hpv_status",
+    "treatment",
+    "center_id",
+    "gtvp_volume_mm3",
+    "gtvn_count",
+    "gtvn_total_volume_mm3",
+    "total_tumor_volume_ml",
+    "gtvn_max_dist_from_gtvp_mm"
+  ],
+  "penalizer": 0.5,
+  "n_patients": 653,
+  "training_medians": {
+    "age": 60.0,
+    "gender": 1.0,
+    "tobacco": -1.0,
+    "alcohol": 1.0,
+    "performance_status": 1.0,
+    "hpv_status": 1.0,
+    "treatment": 1.0,
+    "center_id": 5.0,
+    "gtvp_volume_mm3": 7903.575897216797,
+    "gtvn_count": 2.0,
+    "gtvn_total_volume_mm3": 12392.578125,
+    "total_tumor_volume_ml": 24.210795174007327,
+    "gtvn_max_dist_from_gtvp_mm": 37.67850963301274
+  },
+  "dropped_features": [],
+  "source_csv": "/home/introai17/HERO_upload/results/tn_staging_rf_exclude48/pred_oof_components/pred_oof_components_features_after_exclude48.csv",
+  "model_type": "WeibullAFT"
+}
