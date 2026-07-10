@@ -59,7 +59,7 @@ RFS_DIR        = MODEL_PATH / "rfs"
 
 # Remove very small predicted tumor components before downstream tasks.
 # Applies to both GTVp(label=1) and GTVn(label=2).
-MIN_TUMOR_COMPONENT_VOXELS = int(os.environ.get("MIN_TUMOR_COMPONENT_VOXELS", "1000"))
+MIN_TUMOR_COMPONENT_VOXELS = int(os.environ.get("MIN_TUMOR_COMPONENT_VOXELS", "300"))
 
 
 # ===========================================================================
@@ -563,6 +563,7 @@ def run_segmentation(ct_path, pet_path, ehr) -> np.ndarray:
             "-f", *folds,
             "-npp", "1",
             "-nps", "1",
+            "-step_size", "0.4",
             "--disable_tta",
             "--not_on_device",
         ], env=env, check=True)
