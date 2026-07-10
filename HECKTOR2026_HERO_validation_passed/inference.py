@@ -57,6 +57,10 @@ NNUNET_DIR     = MODEL_PATH / "nnunet"
 TN_DIR         = MODEL_PATH / "tn_staging"
 RFS_DIR        = MODEL_PATH / "rfs"
 
+# Remove very small predicted tumor components before downstream tasks.
+# Applies to both GTVp(label=1) and GTVn(label=2).
+MIN_TUMOR_COMPONENT_VOXELS = int(os.environ.get("MIN_TUMOR_COMPONENT_VOXELS", "1000"))
+
 
 # ===========================================================================
 # Main entry point
@@ -115,6 +119,11 @@ def run():
         print("[FAILSAFE] Segmentation error:", repr(e))
         traceback.print_exc()
         segmentation_array = _zero_segmentation_like_ct()
+
+    segmentation_array = _remove_small_tumor_components(
+        segmentation_array,
+        min_voxels=MIN_TUMOR_COMPONENT_VOXELS,
+    )
 
     try:
         write_segmentation(
@@ -201,6 +210,73 @@ def _normalize_stage(value, prefix: str, lo: int, hi: int) -> str:
         )
 
     return f"{prefix}{n}"
+
+
+
+def _remove_small_tumor_components(segmentation_array: np.ndarray, min_voxels: int = MIN_TUMOR_COMPONENT_VOXELS) -> np.ndarray:
+    """
+    Remove tiny predicted tumor connected components.
+
+    Labels:
+      0 = background
+      1 = GTVp
+      2 = GTVn
+
+    Components smaller than min_voxels are set to background.
+    This postprocessed mask is used for:
+      - output segmentation
+      - TN staging features
+      - RFS/prognosis features
+    """
+    arr = np.asarray(segmentation_array).copy()
+
+    if arr.ndim == 4 and arr.shape[0] == 1:
+        arr = arr[0]
+
+    if arr.ndim != 3:
+        print(f"[PP] Small-component removal skipped: expected 3D array, got shape={arr.shape}")
+        return arr
+
+    if min_voxels <= 0:
+        print(f"[PP] Small-component removal disabled: min_voxels={min_voxels}")
+        return arr.astype(np.uint8)
+
+    structure = np.ones((3, 3, 3), dtype=np.uint8)
+
+    total_removed_voxels = 0
+    for label_value, label_name in [(1, "GTVp"), (2, "GTVn")]:
+        mask = arr == label_value
+        labeled, n_comp = cc_label(mask, structure=structure)
+
+        if n_comp == 0:
+            print(f"[PP] {label_name}: no components")
+            continue
+
+        sizes = np.bincount(labeled.ravel())
+        remove_ids = [
+            cid for cid in range(1, len(sizes))
+            if int(sizes[cid]) < int(min_voxels)
+        ]
+
+        kept_ids = [
+            cid for cid in range(1, len(sizes))
+            if int(sizes[cid]) >= int(min_voxels)
+        ]
+
+        removed_voxels = int(sum(int(sizes[cid]) for cid in remove_ids))
+        total_removed_voxels += removed_voxels
+
+        for cid in remove_ids:
+            arr[labeled == cid] = 0
+
+        print(
+            f"[PP] {label_name}: components={n_comp}, "
+            f"kept={len(kept_ids)}, removed={len(remove_ids)}, "
+            f"removed_voxels={removed_voxels}, min_voxels={min_voxels}"
+        )
+
+    print(f"[PP] Small-component removal done: total_removed_voxels={total_removed_voxels}")
+    return arr.astype(np.uint8)
 
 
 # ===========================================================================
@@ -357,10 +433,10 @@ def run_segmentation(ct_path, pet_path, ehr) -> np.ndarray:
     """
     Run nnU-Net segmentation.
 
-    Important:
-    Grand Challenge CT and PET inputs may not have identical image grids.
-    nnU-Net requires all modalities for one case to have the same shape,
-    spacing, origin, and direction. Therefore PET is resampled to the CT grid.
+    Current validation experiment:
+      - For oversized cases, crop to head-and-neck region first.
+      - If cropped volume is still > 100,000,000 voxels, return zero segmentation.
+      - Use all available nnU-Net folds as an ensemble.
     """
     ct_img = SimpleITK.ReadImage(str(ct_path))
     pet_img = SimpleITK.ReadImage(str(pet_path))
@@ -372,13 +448,83 @@ def run_segmentation(ct_path, pet_path, ehr) -> np.ndarray:
     print(f"[Seg] PET size={pet_img.GetSize()}, spacing={pet_img.GetSpacing()}")
 
     voxel_count = int(np.prod(ct_img.GetSize()))
-    if voxel_count > 100_000_000:
-        print(
-            f"[Seg] Huge case voxel_count={voxel_count}; "
-            "skipping nnU-Net and returning zero segmentation."
-        )
-        return np.zeros(tuple(reversed(ct_img.GetSize())), dtype=np.uint8)
+    print(f"[Seg] voxel_count={voxel_count:,}")
 
+    ct_orig = None
+    crop_z_start = 0
+    crop_y_start = 0
+    crop_x_start = 0
+
+    # Condition 2 first for oversized cases:
+    # crop to head-and-neck region, then apply Condition 1 fallback only if still too large.
+    if voxel_count > 100_000_000:
+        print("[Seg] Large case — applying head-and-neck crop first (Z=500 + XY tissue bbox).")
+
+        ct_orig = ct_img
+        ct_arr = SimpleITK.GetArrayFromImage(ct_img)  # z, y, x
+
+        tissue_mask = ct_arr > -200
+
+        # Z crop: take the superior/head side of body tissue.
+        z_indices = np.where(tissue_mask.any(axis=(1, 2)))[0]
+        if len(z_indices) > 0:
+            z_end = min(ct_arr.shape[0], int(z_indices[-1]) + 1)
+            z_start = max(0, z_end - 500)
+        else:
+            z_end = ct_arr.shape[0]
+            z_start = max(0, z_end - 500)
+
+        # XY crop: tissue bounding box with margin.
+        xy_tissue = tissue_mask.any(axis=0)
+        y_idx = np.where(xy_tissue.any(axis=1))[0]
+        x_idx = np.where(xy_tissue.any(axis=0))[0]
+
+        if len(y_idx) > 0 and len(x_idx) > 0:
+            y_start = max(0, int(y_idx[0]) - 10)
+            y_end = min(ct_arr.shape[1], int(y_idx[-1]) + 11)
+            x_start = max(0, int(x_idx[0]) - 10)
+            x_end = min(ct_arr.shape[2], int(x_idx[-1]) + 11)
+        else:
+            y_start, y_end = 0, ct_arr.shape[1]
+            x_start, x_end = 0, ct_arr.shape[2]
+
+        ct_arr_crop = ct_arr[z_start:z_end, y_start:y_end, x_start:x_end]
+        crop_voxels = int(np.prod(ct_arr_crop.shape))
+
+        print(
+            f"[Seg] Cropped Z:[{z_start},{z_end}] "
+            f"Y:[{y_start},{y_end}] X:[{x_start},{x_end}] "
+            f"shape={ct_arr_crop.shape}, voxels={crop_voxels:,}"
+        )
+
+        # Condition 1 fallback after crop.
+        if crop_voxels > 100_000_000:
+            print(
+                f"[Seg] Still too large after crop "
+                f"({crop_voxels:,} > 100,000,000); returning zero segmentation."
+            )
+            return np.zeros(tuple(reversed(ct_orig.GetSize())), dtype=np.uint8)
+
+        crop_z_start = z_start
+        crop_y_start = y_start
+        crop_x_start = x_start
+
+        ct_crop_img = SimpleITK.GetImageFromArray(ct_arr_crop)
+        origin = list(ct_img.GetOrigin())
+        spacing = ct_img.GetSpacing()
+        direction = ct_img.GetDirection()
+
+        # SimpleITK origin order is x, y, z; numpy crop axes are z, y, x.
+        origin[0] = origin[0] + x_start * spacing[0]
+        origin[1] = origin[1] + y_start * spacing[1]
+        origin[2] = origin[2] + z_start * spacing[2]
+
+        ct_crop_img.SetOrigin(tuple(origin))
+        ct_crop_img.SetSpacing(spacing)
+        ct_crop_img.SetDirection(direction)
+
+        ct_img = ct_crop_img
+        print(f"[Seg] Cropped CT size={ct_img.GetSize()}, spacing={ct_img.GetSpacing()}")
 
     if not _same_sitk_geometry(ct_img, pet_img):
         print("[Seg] PET geometry differs from CT. Resampling PET to CT grid.")
@@ -389,7 +535,6 @@ def run_segmentation(ct_path, pet_path, ehr) -> np.ndarray:
         tmp_in = Path(tmp_in)
         tmp_out = Path(tmp_out)
 
-        # nnU-Net channel convention: case_0000 = CT, case_0001 = PET.
         ct_nii = tmp_in / "case_0000.nii.gz"
         pet_nii = tmp_in / "case_0001.nii.gz"
 
@@ -397,7 +542,6 @@ def run_segmentation(ct_path, pet_path, ehr) -> np.ndarray:
         SimpleITK.WriteImage(pet_img, str(pet_nii))
 
         folds = _available_nnunet_folds()
-        folds = folds[:1]
         print(f"[Seg] Using nnU-Net folds: {folds}")
 
         env = os.environ.copy()
@@ -429,16 +573,39 @@ def run_segmentation(ct_path, pet_path, ehr) -> np.ndarray:
 
         pred_img = SimpleITK.ReadImage(str(pred_files[0]))
 
-        # Ensure segmentation is on CT grid before converting to numpy/output.
         if not _same_sitk_geometry(pred_img, ct_img):
             print("[Seg] Prediction geometry differs from CT. Resampling label to CT grid.")
             pred_img = _resample_to_reference(pred_img, ct_img, is_label=True)
 
         seg = SimpleITK.GetArrayFromImage(pred_img).astype(np.uint8)
 
+    # Paste-back for cropped cases.
+    if ct_orig is not None:
+        orig_shape = tuple(reversed(ct_orig.GetSize()))  # z, y, x
+        full_seg = np.zeros(orig_shape, dtype=np.uint8)
+
+        z_end = crop_z_start + seg.shape[0]
+        y_end = crop_y_start + seg.shape[1]
+        x_end = crop_x_start + seg.shape[2]
+
+        if z_end > full_seg.shape[0] or y_end > full_seg.shape[1] or x_end > full_seg.shape[2]:
+            raise ValueError(
+                f"Cropped segmentation paste-back out of bounds: "
+                f"seg={seg.shape}, start={(crop_z_start, crop_y_start, crop_x_start)}, "
+                f"full={full_seg.shape}"
+            )
+
+        full_seg[
+            crop_z_start:z_end,
+            crop_y_start:y_end,
+            crop_x_start:x_end,
+        ] = seg
+
+        seg = full_seg
+        print(f"[Seg] Pasted back to full CT shape={seg.shape}")
+
     print(f"[Seg] output segmentation shape={seg.shape}, labels={np.unique(seg).tolist()}")
     return seg
-
 
 def _mha_to_nifti(src: str, dst: Path) -> None:
     img = SimpleITK.ReadImage(str(src))
@@ -537,6 +704,60 @@ def _predict_tstage_ordinal(artifact: dict, df: pd.DataFrame) -> str:
     return pred
 
 
+
+def _predict_nstage_ordinal(artifact: dict, df: pd.DataFrame) -> str:
+    """Predict N0/N1/N2/N3 using ordinal probability artifact."""
+    cols = list(artifact["feature_columns"])
+
+    x = df.copy()
+    for c in cols:
+        if c not in x.columns:
+            x[c] = np.nan
+
+    x = x[cols].copy()
+
+    for c in artifact.get("num_cols", []):
+        if c in x.columns:
+            x[c] = pd.to_numeric(x[c], errors="coerce")
+
+    for c in artifact.get("cat_cols", []):
+        if c in x.columns:
+            x[c] = x[c].astype("object").where(x[c].notna(), "__missing__")
+
+    x_mat = artifact["preprocessor"].transform(x)
+
+    probs = {}
+    for key in ["N_ge_1", "N_ge_2", "N_ge_3"]:
+        clf = artifact["classifiers"][key]
+        proba = clf.predict_proba(x_mat)
+        classes = list(getattr(clf, "classes_", [0, 1]))
+        idx = classes.index(1) if 1 in classes else proba.shape[1] - 1
+        probs[key] = float(proba[0, idx])
+
+    thresholds = artifact.get("thresholds", {})
+    thr1 = float(thresholds.get("N_ge_1", 0.5))
+    thr2 = float(thresholds.get("N_ge_2", 0.5))
+    thr3 = float(thresholds.get("N_ge_3", 0.5))
+
+    if probs["N_ge_3"] >= thr3:
+        pred = "N3"
+    elif probs["N_ge_2"] >= thr2:
+        pred = "N2"
+    elif probs["N_ge_1"] >= thr1:
+        pred = "N1"
+    else:
+        pred = "N0"
+
+    print(
+        "[N-ordinal] "
+        f"probs={{'N_ge_1': {probs['N_ge_1']:.4f}, "
+        f"'N_ge_2': {probs['N_ge_2']:.4f}, "
+        f"'N_ge_3': {probs['N_ge_3']:.4f}}}, pred={pred}"
+    )
+
+    return pred
+
+
 def _predict_stage_sklearn_pkg(pkg: dict, df: pd.DataFrame):
     """Predict with existing sklearn RF package format: {'model', 'feature_columns'}."""
     model = pkg["model"]
@@ -586,8 +807,17 @@ def run_tn_staging(ct_path, pet_path, ehr, segmentation_array) -> tuple[str, str
     else:
         raw_t = _predict_stage_sklearn_pkg(t_pkg, df.copy())
 
-    # N-stage stays as existing RF package.
-    raw_n = _predict_stage_sklearn_pkg(n_pkg, df.copy())
+    # N-stage: ordinal artifact or fallback sklearn package.
+    if (
+        isinstance(n_pkg, dict)
+        and n_pkg.get("model_name") == "nstage_ordinal_rf_probability"
+        and "classifiers" in n_pkg
+        and "thresholds" in n_pkg
+        and "preprocessor" in n_pkg
+    ):
+        raw_n = _predict_nstage_ordinal(n_pkg, df.copy())
+    else:
+        raw_n = _predict_stage_sklearn_pkg(n_pkg, df.copy())
 
     t_stage = _normalize_stage(raw_t, "T", 1, 4)
     n_stage = _normalize_stage(raw_n, "N", 0, 3)
@@ -616,8 +846,6 @@ def _parse_ehr_tn(ehr: dict) -> dict:
         "clinical_Performance_Status":  _f("Performance Status"),
         "clinical_Treatment":           _f("Treatment"),
         "clinical_HPV_Status":          _f("HPV Status"),
-        "clinical_Relapse":             np.nan,   # unknown at inference
-        "clinical_RFS":                 np.nan,   # unknown at inference
     }
 
 
@@ -811,7 +1039,7 @@ def run_prognosis(ct_path, pet_path, ehr, segmentation_array, t_stage, n_stage) 
 
     # Clinical features — apply same encoding as training (_encode_clinical in rfs.py):
     #   binary vars (gender, tobacco, alcohol, hpv_status, treatment): 0→-1, 1→1, missing→0
-    #   continuous (age, performance_status, center_id): raw value, missing→0 or median
+    #   continuous (age, performance_status, center_id): raw value, missing -> np.nan so training_medians can impute
     def _f_raw(key):
         v = ehr.get(key)
         if v is None or str(v).strip() in ("", "nan"):
@@ -835,9 +1063,9 @@ def run_prognosis(ct_path, pet_path, ehr, segmentation_array, t_stage, n_stage) 
             return 0.0
         return 1.0 if v == 1.0 else -1.0
 
-    def _f_continuous(key, missing_val=0.0):
+    def _f_continuous(key):
         v = _f_raw(key)
-        return v if v is not None else missing_val
+        return v if v is not None else np.nan
 
     all_feats = {
         "gtvp_volume_mm3":           gtvp_vol_mm3,

@@ -1,45 +1,49 @@
-# HECKTOR2026 HERO validation-passed inference package
+# crop_limit_ensemble_tnfixed_smallpp1000_nordinal_coxph
 
-This folder contains the container source files used for the validation-passed HERO Grand Challenge submission.
+Grand Challenge validation package for HECKTOR2026 HERO.
 
-## Contents
+This folder overwrites the previous HECKTOR2026_HERO_validation_passed package with the latest experiment.
 
-```text
-Dockerfile
-inference.py
-requirements.txt
-.dockerignore
-build_container.sh
-pack_model.sh
-VALIDATION_PASSED_NOTES.md
-artifact_checks/
-Build container tar
-./build_container.sh hecktor2026-task hecktor2026-task.tar.gz
-Pack model tar
+## Experiment definition
 
-Prepare a model/ directory with:
+- crop first for oversized CT cases
+- if cropped volume is still larger than 100,000,000 voxels, return zero/default segmentation fallback
+- nnU-Net fold ensemble using all available fold_* directories
+- remove predicted tumor connected components smaller than 1000 voxels
+- T-stage leakage fixed
+- N-stage ordinal RandomForest probability model
+- RFS model: CoxPH
+- clinical_Relapse and clinical_RFS are not used in TN staging artifacts or inference placeholders
 
-model/nnunet/
-model/tn_staging/
-model/rfs/
+## Grand Challenge upload files
 
-Then run:
+The actual upload tarballs are not committed to GitHub because they are large.
 
-./pack_model.sh model model.tar.gz
-Validation-passed RFS
+Local package source:
 
-The validation-passed submission used CoxPH RFS files:
+/home/introai17/salamanca/gc_uploads/crop_limit_ensemble_tnfixed_smallpp1000_nordinal_coxph_20260710_024700
 
-rfs/coxph_model.pkl
-rfs/scaler.pkl
-rfs/rfs_model_config.json
+Expected upload files:
 
-It did not use WeibullAFT for the submitted validation-passed model archive.
+- container.tar.gz
+- model.tar.gz
 
-Huge-case handling
+## Included in this GitHub folder
 
-The validation-passed inference code skips nnU-Net when:
+- Dockerfile
+- inference.py
+- requirements.txt
+- small TN staging artifacts
+- small RFS CoxPH artifacts
+- manifests and notes
 
-CT voxel_count > 100,000,000
+## N-stage OOF summary
 
-This was used to avoid CPU RAM failure on very large validation cases.
+- balanced accuracy: 0.6930878088110322
+- macro recall: 0.6930878088110322
+- macro F1: 0.6214316163830734
+- note: N3 is over-predicted in OOF compared with the true distribution
+
+## Package title
+
+crop_limit_ensemble_tnfixed_smallpp1000_nordinal_coxph
